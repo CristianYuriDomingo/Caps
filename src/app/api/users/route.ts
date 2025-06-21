@@ -1,12 +1,13 @@
 // app/api/users/route.ts
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
+import { authOptions } from '@/lib/auth' // Import your auth config
 import { prisma } from '@/lib/prisma'
 
 export async function GET() {
   try {
-    // Optional: Check if user is authenticated
-    const session = await getServerSession()
+    // Pass authOptions to getServerSession
+    const session = await getServerSession(authOptions)
     if (!session) {
       return NextResponse.json({ error: 'Not authenticated' }, { status: 401 })
     }
