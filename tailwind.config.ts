@@ -2,14 +2,20 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './node_modules/flowbite-react/**/*.{js,ts,jsx,tsx}'
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  // Note: v4 uses different plugin syntax
-  plugins: [
-    // You might need to check if flowbite supports v4
-    // require('flowbite/plugin')
-  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+      },
+    },
+  },
+  plugins: [],
 }
+
 export default config
