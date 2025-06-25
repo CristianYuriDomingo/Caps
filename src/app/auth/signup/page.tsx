@@ -4,17 +4,19 @@ import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 
-const SignInPage = () => {
+const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const router = useRouter();
   
   const [formData, setFormData] = useState({
+    name: '',
     email: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,7 +38,7 @@ const SignInPage = () => {
       });
       
       if (result?.error) {
-        setError(`${provider.charAt(0).toUpperCase() + provider.slice(1)} sign-in failed. Please try again.`);
+        setError(`${provider.charAt(0).toUpperCase() + provider.slice(1)} sign-up failed. Please try again.`);
       } else if (result?.ok) {
         router.push('/dashboard');
       }
@@ -47,22 +49,44 @@ const SignInPage = () => {
     }
   };
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match.');
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const result = await signIn('credentials', {
-        email: formData.email,
-        password: formData.password,
-        redirect: false
+      const response = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          password: formData.password
+        })
       });
 
-      if (result?.error) {
-        setError('Invalid email or password. Please try again.');
-      } else if (result?.ok) {
-        router.push('/dashboard');
+      const data = await response.json();
+
+      if (response.ok) {
+        // Auto sign in after successful registration
+        const signInResult = await signIn('credentials', {
+          email: formData.email,
+          password: formData.password,
+          redirect: false
+        });
+
+        if (signInResult?.ok) {
+          router.push('/dashboard');
+        }
+      } else {
+        setError(data.message || 'Registration failed. Please try again.');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');
@@ -72,21 +96,21 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl p-8 w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-20 h-20 bg-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <div className="w-20 h-20 bg-green-500 rounded-full mx-auto mb-4 flex items-center justify-center">
             <svg viewBox="0 0 100 100" className="w-12 h-12 text-white fill-current">
               <path d="M20 30 L50 10 L80 30 L80 70 L50 90 L20 70 Z" />
-              <circle cx="50" cy="45" r="8" className="fill-blue-200" />
+              <circle cx="50" cy="45" r="8" className="fill-green-200" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-blue-600 mb-2">
-            Welcome Back!
+          <h1 className="text-2xl font-bold text-green-600 mb-2">
+            Join Bantay Bayan!
           </h1>
           <p className="text-gray-600">
-            Please sign in to continue to Bantay Bayan
+            Create your account to get started
           </p>
         </div>
 
@@ -97,7 +121,7 @@ const SignInPage = () => {
           </div>
         )}
 
-        {/* Social Sign In Buttons */}
+        {/* Social Sign Up Buttons */}
         <div className="space-y-3 mb-6">
           <button
             onClick={() => handleSocialSignIn('google')}
@@ -110,7 +134,7 @@ const SignInPage = () => {
               <path fill="#fbbc05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
               <path fill="#ea4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            <span className="font-medium text-gray-700">Continue with Google</span>
+            <span className="font-medium text-gray-700">Sign up with Google</span>
           </button>
 
           <button
@@ -121,7 +145,7 @@ const SignInPage = () => {
             <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
               <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
             </svg>
-            <span className="font-medium text-gray-700">Continue with Facebook</span>
+            <span className="font-medium text-gray-700">Sign up with Facebook</span>
           </button>
         </div>
 
@@ -136,7 +160,20 @@ const SignInPage = () => {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSignIn} className="space-y-4">
+        <form onSubmit={handleSignUp} className="space-y-4">
+          <div className="relative">
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:outline-none transition-colors"
+            />
+          </div>
+
           <div className="relative">
             <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -146,7 +183,7 @@ const SignInPage = () => {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors"
+              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:outline-none transition-colors"
             />
           </div>
 
@@ -159,7 +196,7 @@ const SignInPage = () => {
               value={formData.password}
               onChange={handleInputChange}
               required
-              className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors"
+              className="w-full pl-10 pr-12 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:outline-none transition-colors"
             />
             <button
               type="button"
@@ -170,33 +207,37 @@ const SignInPage = () => {
             </button>
           </div>
 
-          <div className="text-right">
-            <button
-              type="button"
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              Forgot Password?
-            </button>
+          <div className="relative">
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type={showPassword ? "text" : "password"}
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
+              required
+              className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-green-500 focus:outline-none transition-colors"
+            />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-4 rounded-xl hover:from-green-600 hover:to-green-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {isLoading ? 'Signing In...' : 'Sign In'}
+            {isLoading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
-        {/* Link to Sign Up */}
+        {/* Link to Sign In */}
         <div className="text-center mt-6">
           <p className="text-gray-600">
-            Don't have an account?{' '}
+            Already have an account?{' '}
             <Link
-              href="/auth/signup"
-              className="text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              href="/auth/signin"
+              className="text-green-600 hover:text-green-800 font-medium transition-colors"
             >
-              Sign Up
+              Sign In
             </Link>
           </p>
         </div>
@@ -210,4 +251,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUpPage;
