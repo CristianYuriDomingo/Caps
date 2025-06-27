@@ -1,28 +1,31 @@
-// middleware.ts
 import { withAuth } from "next-auth/middleware"
-import type { NextRequestWithAuth } from "next-auth/middleware"
+import { NextResponse } from "next/server"
 
 export default withAuth(
-  // `withAuth` augments your `Request` with the user's token.
-  function middleware(req: NextRequestWithAuth) {
-    // Add any additional middleware logic here
-    console.log("User token:", req.nextauth.token)
+  function middleware(req) {
+    // Redirect admin users trying to access user dashboard
+    if (
+      req.nextUrl.pathname.startsWith("/dashboard") &&
+      req.nextauth.token?.role === "admin"
+    ) {
+      return NextResponse.redirect(new URL("/admin", req.url))
+    }
+
+    // Prevent non-admins from accessing admin routes
+    if (
+      req.nextUrl.pathname.startsWith("/admin") &&
+      req.nextauth.token?.role !== "admin"
+    ) {
+      return NextResponse.redirect(new URL("/dashboard", req.url))
+    }
   },
   {
     callbacks: {
-      authorized: ({ token }) => {
-        // Return true if user is authenticated
-        return !!token
-      },
+      authorized: ({ token }) => !!token,
     },
   }
 )
 
 export const config = {
-  matcher: [
-    // Protect these routes
-    "/dashboard/:path*",
-    "/admin/:path*",
-    "/api/protected/:path*"
-  ]
+  matcher: ["/dashboard/:path*", "/admin/:path*"],
 }
