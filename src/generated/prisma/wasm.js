@@ -162,6 +162,35 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   expires: 'expires'
 };
 
+exports.Prisma.ModuleScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  image: 'image',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.LessonScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  bubbleSpeech: 'bubbleSpeech',
+  timer: 'timer',
+  moduleId: 'moduleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TipScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  lessonId: 'lessonId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -182,7 +211,10 @@ exports.Prisma.ModelName = {
   Account: 'Account',
   Session: 'Session',
   User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  Module: 'Module',
+  Lesson: 'Lesson',
+  Tip: 'Tip'
 };
 
 /**

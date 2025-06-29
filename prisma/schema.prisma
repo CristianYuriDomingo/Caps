@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  // Remove the custom output path to use default location
 }
 
 datasource db {
@@ -25,8 +25,8 @@ model Account {
   id_token          String?  @db.Text
   session_state     String?
 
-  createdAt         DateTime @default(now())     // ✅ Added
-  updatedAt         DateTime @updatedAt          // ✅ Optional but recommended
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -61,4 +61,47 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+// New models for your learning management system
+model Module {
+  id          String   @id @default(cuid())
+  title       String
+  image       String
+  status      String   @default("active") // 'active' or 'inactive'
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lessons     Lesson[]
+  
+  @@map("modules")
+}
+
+model Lesson {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  bubbleSpeech String?
+  timer        Int      @default(300) // in seconds
+  moduleId     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  module       Module   @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  tips         Tip[]
+  
+  @@map("lessons")
+}
+
+model Tip {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  lessonId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  lesson      Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  
+  @@map("tips")
 }

@@ -33,6 +33,21 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  * 
  */
 export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
+/**
+ * Model Module
+ * 
+ */
+export type Module = $Result.DefaultSelection<Prisma.$ModulePayload>
+/**
+ * Model Lesson
+ * 
+ */
+export type Lesson = $Result.DefaultSelection<Prisma.$LessonPayload>
+/**
+ * Model Tip
+ * 
+ */
+export type Tip = $Result.DefaultSelection<Prisma.$TipPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -198,6 +213,36 @@ export class PrismaClient<
     * ```
     */
   get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.module`: Exposes CRUD operations for the **Module** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Modules
+    * const modules = await prisma.module.findMany()
+    * ```
+    */
+  get module(): Prisma.ModuleDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.lesson`: Exposes CRUD operations for the **Lesson** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Lessons
+    * const lessons = await prisma.lesson.findMany()
+    * ```
+    */
+  get lesson(): Prisma.LessonDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.tip`: Exposes CRUD operations for the **Tip** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Tips
+    * const tips = await prisma.tip.findMany()
+    * ```
+    */
+  get tip(): Prisma.TipDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -641,7 +686,10 @@ export namespace Prisma {
     Account: 'Account',
     Session: 'Session',
     User: 'User',
-    VerificationToken: 'VerificationToken'
+    VerificationToken: 'VerificationToken',
+    Module: 'Module',
+    Lesson: 'Lesson',
+    Tip: 'Tip'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -660,7 +708,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "account" | "session" | "user" | "verificationToken"
+      modelProps: "account" | "session" | "user" | "verificationToken" | "module" | "lesson" | "tip"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -960,6 +1008,228 @@ export namespace Prisma {
           }
         }
       }
+      Module: {
+        payload: Prisma.$ModulePayload<ExtArgs>
+        fields: Prisma.ModuleFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ModuleFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ModuleFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          findFirst: {
+            args: Prisma.ModuleFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ModuleFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          findMany: {
+            args: Prisma.ModuleFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>[]
+          }
+          create: {
+            args: Prisma.ModuleCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          createMany: {
+            args: Prisma.ModuleCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ModuleCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>[]
+          }
+          delete: {
+            args: Prisma.ModuleDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          update: {
+            args: Prisma.ModuleUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          deleteMany: {
+            args: Prisma.ModuleDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ModuleUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ModuleUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>[]
+          }
+          upsert: {
+            args: Prisma.ModuleUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ModulePayload>
+          }
+          aggregate: {
+            args: Prisma.ModuleAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateModule>
+          }
+          groupBy: {
+            args: Prisma.ModuleGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ModuleGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ModuleCountArgs<ExtArgs>
+            result: $Utils.Optional<ModuleCountAggregateOutputType> | number
+          }
+        }
+      }
+      Lesson: {
+        payload: Prisma.$LessonPayload<ExtArgs>
+        fields: Prisma.LessonFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.LessonFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.LessonFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          findFirst: {
+            args: Prisma.LessonFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.LessonFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          findMany: {
+            args: Prisma.LessonFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          create: {
+            args: Prisma.LessonCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          createMany: {
+            args: Prisma.LessonCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.LessonCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          delete: {
+            args: Prisma.LessonDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          update: {
+            args: Prisma.LessonUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          deleteMany: {
+            args: Prisma.LessonDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.LessonUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.LessonUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>[]
+          }
+          upsert: {
+            args: Prisma.LessonUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$LessonPayload>
+          }
+          aggregate: {
+            args: Prisma.LessonAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateLesson>
+          }
+          groupBy: {
+            args: Prisma.LessonGroupByArgs<ExtArgs>
+            result: $Utils.Optional<LessonGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.LessonCountArgs<ExtArgs>
+            result: $Utils.Optional<LessonCountAggregateOutputType> | number
+          }
+        }
+      }
+      Tip: {
+        payload: Prisma.$TipPayload<ExtArgs>
+        fields: Prisma.TipFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          findFirst: {
+            args: Prisma.TipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          findMany: {
+            args: Prisma.TipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>[]
+          }
+          create: {
+            args: Prisma.TipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          createMany: {
+            args: Prisma.TipCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>[]
+          }
+          delete: {
+            args: Prisma.TipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          update: {
+            args: Prisma.TipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          deleteMany: {
+            args: Prisma.TipDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TipUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>[]
+          }
+          upsert: {
+            args: Prisma.TipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TipPayload>
+          }
+          aggregate: {
+            args: Prisma.TipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTip>
+          }
+          groupBy: {
+            args: Prisma.TipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TipGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TipCountArgs<ExtArgs>
+            result: $Utils.Optional<TipCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1048,6 +1318,9 @@ export namespace Prisma {
     session?: SessionOmit
     user?: UserOmit
     verificationToken?: VerificationTokenOmit
+    module?: ModuleOmit
+    lesson?: LessonOmit
+    tip?: TipOmit
   }
 
   /* Types for Logging */
@@ -1174,6 +1447,68 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SessionWhereInput
+  }
+
+
+  /**
+   * Count Type ModuleCountOutputType
+   */
+
+  export type ModuleCountOutputType = {
+    lessons: number
+  }
+
+  export type ModuleCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lessons?: boolean | ModuleCountOutputTypeCountLessonsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ModuleCountOutputType
+     */
+    select?: ModuleCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ModuleCountOutputType without action
+   */
+  export type ModuleCountOutputTypeCountLessonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LessonWhereInput
+  }
+
+
+  /**
+   * Count Type LessonCountOutputType
+   */
+
+  export type LessonCountOutputType = {
+    tips: number
+  }
+
+  export type LessonCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tips?: boolean | LessonCountOutputTypeCountTipsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * LessonCountOutputType without action
+   */
+  export type LessonCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the LessonCountOutputType
+     */
+    select?: LessonCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * LessonCountOutputType without action
+   */
+  export type LessonCountOutputTypeCountTipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TipWhereInput
   }
 
 
@@ -5555,6 +5890,3321 @@ export namespace Prisma {
 
 
   /**
+   * Model Module
+   */
+
+  export type AggregateModule = {
+    _count: ModuleCountAggregateOutputType | null
+    _min: ModuleMinAggregateOutputType | null
+    _max: ModuleMaxAggregateOutputType | null
+  }
+
+  export type ModuleMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    image: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModuleMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    image: string | null
+    status: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ModuleCountAggregateOutputType = {
+    id: number
+    title: number
+    image: number
+    status: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ModuleMinAggregateInputType = {
+    id?: true
+    title?: true
+    image?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModuleMaxAggregateInputType = {
+    id?: true
+    title?: true
+    image?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ModuleCountAggregateInputType = {
+    id?: true
+    title?: true
+    image?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ModuleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Module to aggregate.
+     */
+    where?: ModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Modules to fetch.
+     */
+    orderBy?: ModuleOrderByWithRelationInput | ModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Modules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Modules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Modules
+    **/
+    _count?: true | ModuleCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ModuleMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ModuleMaxAggregateInputType
+  }
+
+  export type GetModuleAggregateType<T extends ModuleAggregateArgs> = {
+        [P in keyof T & keyof AggregateModule]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateModule[P]>
+      : GetScalarType<T[P], AggregateModule[P]>
+  }
+
+
+
+
+  export type ModuleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ModuleWhereInput
+    orderBy?: ModuleOrderByWithAggregationInput | ModuleOrderByWithAggregationInput[]
+    by: ModuleScalarFieldEnum[] | ModuleScalarFieldEnum
+    having?: ModuleScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ModuleCountAggregateInputType | true
+    _min?: ModuleMinAggregateInputType
+    _max?: ModuleMaxAggregateInputType
+  }
+
+  export type ModuleGroupByOutputType = {
+    id: string
+    title: string
+    image: string
+    status: string
+    createdAt: Date
+    updatedAt: Date
+    _count: ModuleCountAggregateOutputType | null
+    _min: ModuleMinAggregateOutputType | null
+    _max: ModuleMaxAggregateOutputType | null
+  }
+
+  type GetModuleGroupByPayload<T extends ModuleGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ModuleGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ModuleGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ModuleGroupByOutputType[P]>
+            : GetScalarType<T[P], ModuleGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ModuleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    image?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lessons?: boolean | Module$lessonsArgs<ExtArgs>
+    _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["module"]>
+
+  export type ModuleSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    image?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["module"]>
+
+  export type ModuleSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    image?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["module"]>
+
+  export type ModuleSelectScalar = {
+    id?: boolean
+    title?: boolean
+    image?: boolean
+    status?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ModuleOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "image" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["module"]>
+  export type ModuleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lessons?: boolean | Module$lessonsArgs<ExtArgs>
+    _count?: boolean | ModuleCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ModuleIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ModuleIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ModulePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Module"
+    objects: {
+      lessons: Prisma.$LessonPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      image: string
+      status: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["module"]>
+    composites: {}
+  }
+
+  type ModuleGetPayload<S extends boolean | null | undefined | ModuleDefaultArgs> = $Result.GetResult<Prisma.$ModulePayload, S>
+
+  type ModuleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ModuleFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ModuleCountAggregateInputType | true
+    }
+
+  export interface ModuleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Module'], meta: { name: 'Module' } }
+    /**
+     * Find zero or one Module that matches the filter.
+     * @param {ModuleFindUniqueArgs} args - Arguments to find a Module
+     * @example
+     * // Get one Module
+     * const module = await prisma.module.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ModuleFindUniqueArgs>(args: SelectSubset<T, ModuleFindUniqueArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Module that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ModuleFindUniqueOrThrowArgs} args - Arguments to find a Module
+     * @example
+     * // Get one Module
+     * const module = await prisma.module.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ModuleFindUniqueOrThrowArgs>(args: SelectSubset<T, ModuleFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Module that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleFindFirstArgs} args - Arguments to find a Module
+     * @example
+     * // Get one Module
+     * const module = await prisma.module.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ModuleFindFirstArgs>(args?: SelectSubset<T, ModuleFindFirstArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Module that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleFindFirstOrThrowArgs} args - Arguments to find a Module
+     * @example
+     * // Get one Module
+     * const module = await prisma.module.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ModuleFindFirstOrThrowArgs>(args?: SelectSubset<T, ModuleFindFirstOrThrowArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Modules that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Modules
+     * const modules = await prisma.module.findMany()
+     * 
+     * // Get first 10 Modules
+     * const modules = await prisma.module.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const moduleWithIdOnly = await prisma.module.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ModuleFindManyArgs>(args?: SelectSubset<T, ModuleFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Module.
+     * @param {ModuleCreateArgs} args - Arguments to create a Module.
+     * @example
+     * // Create one Module
+     * const Module = await prisma.module.create({
+     *   data: {
+     *     // ... data to create a Module
+     *   }
+     * })
+     * 
+     */
+    create<T extends ModuleCreateArgs>(args: SelectSubset<T, ModuleCreateArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Modules.
+     * @param {ModuleCreateManyArgs} args - Arguments to create many Modules.
+     * @example
+     * // Create many Modules
+     * const module = await prisma.module.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ModuleCreateManyArgs>(args?: SelectSubset<T, ModuleCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Modules and returns the data saved in the database.
+     * @param {ModuleCreateManyAndReturnArgs} args - Arguments to create many Modules.
+     * @example
+     * // Create many Modules
+     * const module = await prisma.module.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Modules and only return the `id`
+     * const moduleWithIdOnly = await prisma.module.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ModuleCreateManyAndReturnArgs>(args?: SelectSubset<T, ModuleCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Module.
+     * @param {ModuleDeleteArgs} args - Arguments to delete one Module.
+     * @example
+     * // Delete one Module
+     * const Module = await prisma.module.delete({
+     *   where: {
+     *     // ... filter to delete one Module
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ModuleDeleteArgs>(args: SelectSubset<T, ModuleDeleteArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Module.
+     * @param {ModuleUpdateArgs} args - Arguments to update one Module.
+     * @example
+     * // Update one Module
+     * const module = await prisma.module.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ModuleUpdateArgs>(args: SelectSubset<T, ModuleUpdateArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Modules.
+     * @param {ModuleDeleteManyArgs} args - Arguments to filter Modules to delete.
+     * @example
+     * // Delete a few Modules
+     * const { count } = await prisma.module.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ModuleDeleteManyArgs>(args?: SelectSubset<T, ModuleDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Modules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Modules
+     * const module = await prisma.module.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ModuleUpdateManyArgs>(args: SelectSubset<T, ModuleUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Modules and returns the data updated in the database.
+     * @param {ModuleUpdateManyAndReturnArgs} args - Arguments to update many Modules.
+     * @example
+     * // Update many Modules
+     * const module = await prisma.module.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Modules and only return the `id`
+     * const moduleWithIdOnly = await prisma.module.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ModuleUpdateManyAndReturnArgs>(args: SelectSubset<T, ModuleUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Module.
+     * @param {ModuleUpsertArgs} args - Arguments to update or create a Module.
+     * @example
+     * // Update or create a Module
+     * const module = await prisma.module.upsert({
+     *   create: {
+     *     // ... data to create a Module
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Module we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ModuleUpsertArgs>(args: SelectSubset<T, ModuleUpsertArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Modules.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleCountArgs} args - Arguments to filter Modules to count.
+     * @example
+     * // Count the number of Modules
+     * const count = await prisma.module.count({
+     *   where: {
+     *     // ... the filter for the Modules we want to count
+     *   }
+     * })
+    **/
+    count<T extends ModuleCountArgs>(
+      args?: Subset<T, ModuleCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ModuleCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Module.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ModuleAggregateArgs>(args: Subset<T, ModuleAggregateArgs>): Prisma.PrismaPromise<GetModuleAggregateType<T>>
+
+    /**
+     * Group by Module.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ModuleGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ModuleGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ModuleGroupByArgs['orderBy'] }
+        : { orderBy?: ModuleGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ModuleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetModuleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Module model
+   */
+  readonly fields: ModuleFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Module.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ModuleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lessons<T extends Module$lessonsArgs<ExtArgs> = {}>(args?: Subset<T, Module$lessonsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Module model
+   */
+  interface ModuleFieldRefs {
+    readonly id: FieldRef<"Module", 'String'>
+    readonly title: FieldRef<"Module", 'String'>
+    readonly image: FieldRef<"Module", 'String'>
+    readonly status: FieldRef<"Module", 'String'>
+    readonly createdAt: FieldRef<"Module", 'DateTime'>
+    readonly updatedAt: FieldRef<"Module", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Module findUnique
+   */
+  export type ModuleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Module to fetch.
+     */
+    where: ModuleWhereUniqueInput
+  }
+
+  /**
+   * Module findUniqueOrThrow
+   */
+  export type ModuleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Module to fetch.
+     */
+    where: ModuleWhereUniqueInput
+  }
+
+  /**
+   * Module findFirst
+   */
+  export type ModuleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Module to fetch.
+     */
+    where?: ModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Modules to fetch.
+     */
+    orderBy?: ModuleOrderByWithRelationInput | ModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Modules.
+     */
+    cursor?: ModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Modules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Modules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Modules.
+     */
+    distinct?: ModuleScalarFieldEnum | ModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Module findFirstOrThrow
+   */
+  export type ModuleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Module to fetch.
+     */
+    where?: ModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Modules to fetch.
+     */
+    orderBy?: ModuleOrderByWithRelationInput | ModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Modules.
+     */
+    cursor?: ModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Modules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Modules.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Modules.
+     */
+    distinct?: ModuleScalarFieldEnum | ModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Module findMany
+   */
+  export type ModuleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter, which Modules to fetch.
+     */
+    where?: ModuleWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Modules to fetch.
+     */
+    orderBy?: ModuleOrderByWithRelationInput | ModuleOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Modules.
+     */
+    cursor?: ModuleWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Modules from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Modules.
+     */
+    skip?: number
+    distinct?: ModuleScalarFieldEnum | ModuleScalarFieldEnum[]
+  }
+
+  /**
+   * Module create
+   */
+  export type ModuleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Module.
+     */
+    data: XOR<ModuleCreateInput, ModuleUncheckedCreateInput>
+  }
+
+  /**
+   * Module createMany
+   */
+  export type ModuleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Modules.
+     */
+    data: ModuleCreateManyInput | ModuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Module createManyAndReturn
+   */
+  export type ModuleCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * The data used to create many Modules.
+     */
+    data: ModuleCreateManyInput | ModuleCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Module update
+   */
+  export type ModuleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Module.
+     */
+    data: XOR<ModuleUpdateInput, ModuleUncheckedUpdateInput>
+    /**
+     * Choose, which Module to update.
+     */
+    where: ModuleWhereUniqueInput
+  }
+
+  /**
+   * Module updateMany
+   */
+  export type ModuleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Modules.
+     */
+    data: XOR<ModuleUpdateManyMutationInput, ModuleUncheckedUpdateManyInput>
+    /**
+     * Filter which Modules to update
+     */
+    where?: ModuleWhereInput
+    /**
+     * Limit how many Modules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Module updateManyAndReturn
+   */
+  export type ModuleUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * The data used to update Modules.
+     */
+    data: XOR<ModuleUpdateManyMutationInput, ModuleUncheckedUpdateManyInput>
+    /**
+     * Filter which Modules to update
+     */
+    where?: ModuleWhereInput
+    /**
+     * Limit how many Modules to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Module upsert
+   */
+  export type ModuleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Module to update in case it exists.
+     */
+    where: ModuleWhereUniqueInput
+    /**
+     * In case the Module found by the `where` argument doesn't exist, create a new Module with this data.
+     */
+    create: XOR<ModuleCreateInput, ModuleUncheckedCreateInput>
+    /**
+     * In case the Module was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ModuleUpdateInput, ModuleUncheckedUpdateInput>
+  }
+
+  /**
+   * Module delete
+   */
+  export type ModuleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+    /**
+     * Filter which Module to delete.
+     */
+    where: ModuleWhereUniqueInput
+  }
+
+  /**
+   * Module deleteMany
+   */
+  export type ModuleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Modules to delete
+     */
+    where?: ModuleWhereInput
+    /**
+     * Limit how many Modules to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Module.lessons
+   */
+  export type Module$lessonsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    where?: LessonWhereInput
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    cursor?: LessonWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Module without action
+   */
+  export type ModuleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Module
+     */
+    select?: ModuleSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Module
+     */
+    omit?: ModuleOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ModuleInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Lesson
+   */
+
+  export type AggregateLesson = {
+    _count: LessonCountAggregateOutputType | null
+    _avg: LessonAvgAggregateOutputType | null
+    _sum: LessonSumAggregateOutputType | null
+    _min: LessonMinAggregateOutputType | null
+    _max: LessonMaxAggregateOutputType | null
+  }
+
+  export type LessonAvgAggregateOutputType = {
+    timer: number | null
+  }
+
+  export type LessonSumAggregateOutputType = {
+    timer: number | null
+  }
+
+  export type LessonMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    bubbleSpeech: string | null
+    timer: number | null
+    moduleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LessonMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    bubbleSpeech: string | null
+    timer: number | null
+    moduleId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type LessonCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    bubbleSpeech: number
+    timer: number
+    moduleId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type LessonAvgAggregateInputType = {
+    timer?: true
+  }
+
+  export type LessonSumAggregateInputType = {
+    timer?: true
+  }
+
+  export type LessonMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bubbleSpeech?: true
+    timer?: true
+    moduleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LessonMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bubbleSpeech?: true
+    timer?: true
+    moduleId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type LessonCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    bubbleSpeech?: true
+    timer?: true
+    moduleId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type LessonAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lesson to aggregate.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Lessons
+    **/
+    _count?: true | LessonCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: LessonAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LessonSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: LessonMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: LessonMaxAggregateInputType
+  }
+
+  export type GetLessonAggregateType<T extends LessonAggregateArgs> = {
+        [P in keyof T & keyof AggregateLesson]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateLesson[P]>
+      : GetScalarType<T[P], AggregateLesson[P]>
+  }
+
+
+
+
+  export type LessonGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: LessonWhereInput
+    orderBy?: LessonOrderByWithAggregationInput | LessonOrderByWithAggregationInput[]
+    by: LessonScalarFieldEnum[] | LessonScalarFieldEnum
+    having?: LessonScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: LessonCountAggregateInputType | true
+    _avg?: LessonAvgAggregateInputType
+    _sum?: LessonSumAggregateInputType
+    _min?: LessonMinAggregateInputType
+    _max?: LessonMaxAggregateInputType
+  }
+
+  export type LessonGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    bubbleSpeech: string | null
+    timer: number
+    moduleId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: LessonCountAggregateOutputType | null
+    _avg: LessonAvgAggregateOutputType | null
+    _sum: LessonSumAggregateOutputType | null
+    _min: LessonMinAggregateOutputType | null
+    _max: LessonMaxAggregateOutputType | null
+  }
+
+  type GetLessonGroupByPayload<T extends LessonGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<LessonGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof LessonGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], LessonGroupByOutputType[P]>
+            : GetScalarType<T[P], LessonGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type LessonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bubbleSpeech?: boolean
+    timer?: boolean
+    moduleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    tips?: boolean | Lesson$tipsArgs<ExtArgs>
+    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bubbleSpeech?: boolean
+    timer?: boolean
+    moduleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bubbleSpeech?: boolean
+    timer?: boolean
+    moduleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["lesson"]>
+
+  export type LessonSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    bubbleSpeech?: boolean
+    timer?: boolean
+    moduleId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "bubbleSpeech" | "timer" | "moduleId" | "createdAt" | "updatedAt", ExtArgs["result"]["lesson"]>
+  export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+    tips?: boolean | Lesson$tipsArgs<ExtArgs>
+    _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type LessonIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+  export type LessonIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    module?: boolean | ModuleDefaultArgs<ExtArgs>
+  }
+
+  export type $LessonPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Lesson"
+    objects: {
+      module: Prisma.$ModulePayload<ExtArgs>
+      tips: Prisma.$TipPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      bubbleSpeech: string | null
+      timer: number
+      moduleId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["lesson"]>
+    composites: {}
+  }
+
+  type LessonGetPayload<S extends boolean | null | undefined | LessonDefaultArgs> = $Result.GetResult<Prisma.$LessonPayload, S>
+
+  type LessonCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<LessonFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: LessonCountAggregateInputType | true
+    }
+
+  export interface LessonDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Lesson'], meta: { name: 'Lesson' } }
+    /**
+     * Find zero or one Lesson that matches the filter.
+     * @param {LessonFindUniqueArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends LessonFindUniqueArgs>(args: SelectSubset<T, LessonFindUniqueArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Lesson that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {LessonFindUniqueOrThrowArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends LessonFindUniqueOrThrowArgs>(args: SelectSubset<T, LessonFindUniqueOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lesson that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindFirstArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends LessonFindFirstArgs>(args?: SelectSubset<T, LessonFindFirstArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Lesson that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindFirstOrThrowArgs} args - Arguments to find a Lesson
+     * @example
+     * // Get one Lesson
+     * const lesson = await prisma.lesson.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends LessonFindFirstOrThrowArgs>(args?: SelectSubset<T, LessonFindFirstOrThrowArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Lessons that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Lessons
+     * const lessons = await prisma.lesson.findMany()
+     * 
+     * // Get first 10 Lessons
+     * const lessons = await prisma.lesson.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const lessonWithIdOnly = await prisma.lesson.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends LessonFindManyArgs>(args?: SelectSubset<T, LessonFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Lesson.
+     * @param {LessonCreateArgs} args - Arguments to create a Lesson.
+     * @example
+     * // Create one Lesson
+     * const Lesson = await prisma.lesson.create({
+     *   data: {
+     *     // ... data to create a Lesson
+     *   }
+     * })
+     * 
+     */
+    create<T extends LessonCreateArgs>(args: SelectSubset<T, LessonCreateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Lessons.
+     * @param {LessonCreateManyArgs} args - Arguments to create many Lessons.
+     * @example
+     * // Create many Lessons
+     * const lesson = await prisma.lesson.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends LessonCreateManyArgs>(args?: SelectSubset<T, LessonCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Lessons and returns the data saved in the database.
+     * @param {LessonCreateManyAndReturnArgs} args - Arguments to create many Lessons.
+     * @example
+     * // Create many Lessons
+     * const lesson = await prisma.lesson.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Lessons and only return the `id`
+     * const lessonWithIdOnly = await prisma.lesson.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends LessonCreateManyAndReturnArgs>(args?: SelectSubset<T, LessonCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Lesson.
+     * @param {LessonDeleteArgs} args - Arguments to delete one Lesson.
+     * @example
+     * // Delete one Lesson
+     * const Lesson = await prisma.lesson.delete({
+     *   where: {
+     *     // ... filter to delete one Lesson
+     *   }
+     * })
+     * 
+     */
+    delete<T extends LessonDeleteArgs>(args: SelectSubset<T, LessonDeleteArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Lesson.
+     * @param {LessonUpdateArgs} args - Arguments to update one Lesson.
+     * @example
+     * // Update one Lesson
+     * const lesson = await prisma.lesson.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends LessonUpdateArgs>(args: SelectSubset<T, LessonUpdateArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Lessons.
+     * @param {LessonDeleteManyArgs} args - Arguments to filter Lessons to delete.
+     * @example
+     * // Delete a few Lessons
+     * const { count } = await prisma.lesson.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends LessonDeleteManyArgs>(args?: SelectSubset<T, LessonDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lessons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Lessons
+     * const lesson = await prisma.lesson.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends LessonUpdateManyArgs>(args: SelectSubset<T, LessonUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Lessons and returns the data updated in the database.
+     * @param {LessonUpdateManyAndReturnArgs} args - Arguments to update many Lessons.
+     * @example
+     * // Update many Lessons
+     * const lesson = await prisma.lesson.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Lessons and only return the `id`
+     * const lessonWithIdOnly = await prisma.lesson.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends LessonUpdateManyAndReturnArgs>(args: SelectSubset<T, LessonUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Lesson.
+     * @param {LessonUpsertArgs} args - Arguments to update or create a Lesson.
+     * @example
+     * // Update or create a Lesson
+     * const lesson = await prisma.lesson.upsert({
+     *   create: {
+     *     // ... data to create a Lesson
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Lesson we want to update
+     *   }
+     * })
+     */
+    upsert<T extends LessonUpsertArgs>(args: SelectSubset<T, LessonUpsertArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Lessons.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonCountArgs} args - Arguments to filter Lessons to count.
+     * @example
+     * // Count the number of Lessons
+     * const count = await prisma.lesson.count({
+     *   where: {
+     *     // ... the filter for the Lessons we want to count
+     *   }
+     * })
+    **/
+    count<T extends LessonCountArgs>(
+      args?: Subset<T, LessonCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], LessonCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Lesson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends LessonAggregateArgs>(args: Subset<T, LessonAggregateArgs>): Prisma.PrismaPromise<GetLessonAggregateType<T>>
+
+    /**
+     * Group by Lesson.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {LessonGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends LessonGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: LessonGroupByArgs['orderBy'] }
+        : { orderBy?: LessonGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, LessonGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetLessonGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Lesson model
+   */
+  readonly fields: LessonFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Lesson.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__LessonClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    module<T extends ModuleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ModuleDefaultArgs<ExtArgs>>): Prisma__ModuleClient<$Result.GetResult<Prisma.$ModulePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tips<T extends Lesson$tipsArgs<ExtArgs> = {}>(args?: Subset<T, Lesson$tipsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Lesson model
+   */
+  interface LessonFieldRefs {
+    readonly id: FieldRef<"Lesson", 'String'>
+    readonly title: FieldRef<"Lesson", 'String'>
+    readonly description: FieldRef<"Lesson", 'String'>
+    readonly bubbleSpeech: FieldRef<"Lesson", 'String'>
+    readonly timer: FieldRef<"Lesson", 'Int'>
+    readonly moduleId: FieldRef<"Lesson", 'String'>
+    readonly createdAt: FieldRef<"Lesson", 'DateTime'>
+    readonly updatedAt: FieldRef<"Lesson", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Lesson findUnique
+   */
+  export type LessonFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson findUniqueOrThrow
+   */
+  export type LessonFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson findFirst
+   */
+  export type LessonFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lessons.
+     */
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson findFirstOrThrow
+   */
+  export type LessonFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lesson to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Lessons.
+     */
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson findMany
+   */
+  export type LessonFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter, which Lessons to fetch.
+     */
+    where?: LessonWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Lessons to fetch.
+     */
+    orderBy?: LessonOrderByWithRelationInput | LessonOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Lessons.
+     */
+    cursor?: LessonWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Lessons from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Lessons.
+     */
+    skip?: number
+    distinct?: LessonScalarFieldEnum | LessonScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson create
+   */
+  export type LessonCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Lesson.
+     */
+    data: XOR<LessonCreateInput, LessonUncheckedCreateInput>
+  }
+
+  /**
+   * Lesson createMany
+   */
+  export type LessonCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Lessons.
+     */
+    data: LessonCreateManyInput | LessonCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Lesson createManyAndReturn
+   */
+  export type LessonCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * The data used to create many Lessons.
+     */
+    data: LessonCreateManyInput | LessonCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lesson update
+   */
+  export type LessonUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Lesson.
+     */
+    data: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
+    /**
+     * Choose, which Lesson to update.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson updateMany
+   */
+  export type LessonUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Lessons.
+     */
+    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
+    /**
+     * Filter which Lessons to update
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lesson updateManyAndReturn
+   */
+  export type LessonUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * The data used to update Lessons.
+     */
+    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyInput>
+    /**
+     * Filter which Lessons to update
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Lesson upsert
+   */
+  export type LessonUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Lesson to update in case it exists.
+     */
+    where: LessonWhereUniqueInput
+    /**
+     * In case the Lesson found by the `where` argument doesn't exist, create a new Lesson with this data.
+     */
+    create: XOR<LessonCreateInput, LessonUncheckedCreateInput>
+    /**
+     * In case the Lesson was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<LessonUpdateInput, LessonUncheckedUpdateInput>
+  }
+
+  /**
+   * Lesson delete
+   */
+  export type LessonDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+    /**
+     * Filter which Lesson to delete.
+     */
+    where: LessonWhereUniqueInput
+  }
+
+  /**
+   * Lesson deleteMany
+   */
+  export type LessonDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Lessons to delete
+     */
+    where?: LessonWhereInput
+    /**
+     * Limit how many Lessons to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Lesson.tips
+   */
+  export type Lesson$tipsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    where?: TipWhereInput
+    orderBy?: TipOrderByWithRelationInput | TipOrderByWithRelationInput[]
+    cursor?: TipWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TipScalarFieldEnum | TipScalarFieldEnum[]
+  }
+
+  /**
+   * Lesson without action
+   */
+  export type LessonDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lesson
+     */
+    select?: LessonSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lesson
+     */
+    omit?: LessonOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LessonInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Tip
+   */
+
+  export type AggregateTip = {
+    _count: TipCountAggregateOutputType | null
+    _min: TipMinAggregateOutputType | null
+    _max: TipMaxAggregateOutputType | null
+  }
+
+  export type TipMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    lessonId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TipMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    lessonId: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TipCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    lessonId: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TipMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    lessonId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TipMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    lessonId?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TipCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    lessonId?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tip to aggregate.
+     */
+    where?: TipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tips to fetch.
+     */
+    orderBy?: TipOrderByWithRelationInput | TipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Tips
+    **/
+    _count?: true | TipCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TipMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TipMaxAggregateInputType
+  }
+
+  export type GetTipAggregateType<T extends TipAggregateArgs> = {
+        [P in keyof T & keyof AggregateTip]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTip[P]>
+      : GetScalarType<T[P], AggregateTip[P]>
+  }
+
+
+
+
+  export type TipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TipWhereInput
+    orderBy?: TipOrderByWithAggregationInput | TipOrderByWithAggregationInput[]
+    by: TipScalarFieldEnum[] | TipScalarFieldEnum
+    having?: TipScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TipCountAggregateInputType | true
+    _min?: TipMinAggregateInputType
+    _max?: TipMaxAggregateInputType
+  }
+
+  export type TipGroupByOutputType = {
+    id: string
+    title: string
+    description: string
+    lessonId: string
+    createdAt: Date
+    updatedAt: Date
+    _count: TipCountAggregateOutputType | null
+    _min: TipMinAggregateOutputType | null
+    _max: TipMaxAggregateOutputType | null
+  }
+
+  type GetTipGroupByPayload<T extends TipGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TipGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TipGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TipGroupByOutputType[P]>
+            : GetScalarType<T[P], TipGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tip"]>
+
+  export type TipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tip"]>
+
+  export type TipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["tip"]>
+
+  export type TipSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    lessonId?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "lessonId" | "createdAt" | "updatedAt", ExtArgs["result"]["tip"]>
+  export type TipInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+  export type TipIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+  export type TipIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    lesson?: boolean | LessonDefaultArgs<ExtArgs>
+  }
+
+  export type $TipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Tip"
+    objects: {
+      lesson: Prisma.$LessonPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string
+      lessonId: string
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["tip"]>
+    composites: {}
+  }
+
+  type TipGetPayload<S extends boolean | null | undefined | TipDefaultArgs> = $Result.GetResult<Prisma.$TipPayload, S>
+
+  type TipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TipCountAggregateInputType | true
+    }
+
+  export interface TipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Tip'], meta: { name: 'Tip' } }
+    /**
+     * Find zero or one Tip that matches the filter.
+     * @param {TipFindUniqueArgs} args - Arguments to find a Tip
+     * @example
+     * // Get one Tip
+     * const tip = await prisma.tip.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TipFindUniqueArgs>(args: SelectSubset<T, TipFindUniqueArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Tip that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TipFindUniqueOrThrowArgs} args - Arguments to find a Tip
+     * @example
+     * // Get one Tip
+     * const tip = await prisma.tip.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TipFindUniqueOrThrowArgs>(args: SelectSubset<T, TipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tip that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipFindFirstArgs} args - Arguments to find a Tip
+     * @example
+     * // Get one Tip
+     * const tip = await prisma.tip.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TipFindFirstArgs>(args?: SelectSubset<T, TipFindFirstArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Tip that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipFindFirstOrThrowArgs} args - Arguments to find a Tip
+     * @example
+     * // Get one Tip
+     * const tip = await prisma.tip.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TipFindFirstOrThrowArgs>(args?: SelectSubset<T, TipFindFirstOrThrowArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Tips that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Tips
+     * const tips = await prisma.tip.findMany()
+     * 
+     * // Get first 10 Tips
+     * const tips = await prisma.tip.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const tipWithIdOnly = await prisma.tip.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TipFindManyArgs>(args?: SelectSubset<T, TipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Tip.
+     * @param {TipCreateArgs} args - Arguments to create a Tip.
+     * @example
+     * // Create one Tip
+     * const Tip = await prisma.tip.create({
+     *   data: {
+     *     // ... data to create a Tip
+     *   }
+     * })
+     * 
+     */
+    create<T extends TipCreateArgs>(args: SelectSubset<T, TipCreateArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Tips.
+     * @param {TipCreateManyArgs} args - Arguments to create many Tips.
+     * @example
+     * // Create many Tips
+     * const tip = await prisma.tip.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TipCreateManyArgs>(args?: SelectSubset<T, TipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Tips and returns the data saved in the database.
+     * @param {TipCreateManyAndReturnArgs} args - Arguments to create many Tips.
+     * @example
+     * // Create many Tips
+     * const tip = await prisma.tip.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Tips and only return the `id`
+     * const tipWithIdOnly = await prisma.tip.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TipCreateManyAndReturnArgs>(args?: SelectSubset<T, TipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Tip.
+     * @param {TipDeleteArgs} args - Arguments to delete one Tip.
+     * @example
+     * // Delete one Tip
+     * const Tip = await prisma.tip.delete({
+     *   where: {
+     *     // ... filter to delete one Tip
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TipDeleteArgs>(args: SelectSubset<T, TipDeleteArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Tip.
+     * @param {TipUpdateArgs} args - Arguments to update one Tip.
+     * @example
+     * // Update one Tip
+     * const tip = await prisma.tip.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TipUpdateArgs>(args: SelectSubset<T, TipUpdateArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Tips.
+     * @param {TipDeleteManyArgs} args - Arguments to filter Tips to delete.
+     * @example
+     * // Delete a few Tips
+     * const { count } = await prisma.tip.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TipDeleteManyArgs>(args?: SelectSubset<T, TipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Tips
+     * const tip = await prisma.tip.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TipUpdateManyArgs>(args: SelectSubset<T, TipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Tips and returns the data updated in the database.
+     * @param {TipUpdateManyAndReturnArgs} args - Arguments to update many Tips.
+     * @example
+     * // Update many Tips
+     * const tip = await prisma.tip.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Tips and only return the `id`
+     * const tipWithIdOnly = await prisma.tip.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TipUpdateManyAndReturnArgs>(args: SelectSubset<T, TipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Tip.
+     * @param {TipUpsertArgs} args - Arguments to update or create a Tip.
+     * @example
+     * // Update or create a Tip
+     * const tip = await prisma.tip.upsert({
+     *   create: {
+     *     // ... data to create a Tip
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Tip we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TipUpsertArgs>(args: SelectSubset<T, TipUpsertArgs<ExtArgs>>): Prisma__TipClient<$Result.GetResult<Prisma.$TipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Tips.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipCountArgs} args - Arguments to filter Tips to count.
+     * @example
+     * // Count the number of Tips
+     * const count = await prisma.tip.count({
+     *   where: {
+     *     // ... the filter for the Tips we want to count
+     *   }
+     * })
+    **/
+    count<T extends TipCountArgs>(
+      args?: Subset<T, TipCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TipCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Tip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TipAggregateArgs>(args: Subset<T, TipAggregateArgs>): Prisma.PrismaPromise<GetTipAggregateType<T>>
+
+    /**
+     * Group by Tip.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TipGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TipGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TipGroupByArgs['orderBy'] }
+        : { orderBy?: TipGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Tip model
+   */
+  readonly fields: TipFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Tip.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    lesson<T extends LessonDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LessonDefaultArgs<ExtArgs>>): Prisma__LessonClient<$Result.GetResult<Prisma.$LessonPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Tip model
+   */
+  interface TipFieldRefs {
+    readonly id: FieldRef<"Tip", 'String'>
+    readonly title: FieldRef<"Tip", 'String'>
+    readonly description: FieldRef<"Tip", 'String'>
+    readonly lessonId: FieldRef<"Tip", 'String'>
+    readonly createdAt: FieldRef<"Tip", 'DateTime'>
+    readonly updatedAt: FieldRef<"Tip", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Tip findUnique
+   */
+  export type TipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter, which Tip to fetch.
+     */
+    where: TipWhereUniqueInput
+  }
+
+  /**
+   * Tip findUniqueOrThrow
+   */
+  export type TipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter, which Tip to fetch.
+     */
+    where: TipWhereUniqueInput
+  }
+
+  /**
+   * Tip findFirst
+   */
+  export type TipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter, which Tip to fetch.
+     */
+    where?: TipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tips to fetch.
+     */
+    orderBy?: TipOrderByWithRelationInput | TipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tips.
+     */
+    cursor?: TipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tips.
+     */
+    distinct?: TipScalarFieldEnum | TipScalarFieldEnum[]
+  }
+
+  /**
+   * Tip findFirstOrThrow
+   */
+  export type TipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter, which Tip to fetch.
+     */
+    where?: TipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tips to fetch.
+     */
+    orderBy?: TipOrderByWithRelationInput | TipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Tips.
+     */
+    cursor?: TipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tips.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Tips.
+     */
+    distinct?: TipScalarFieldEnum | TipScalarFieldEnum[]
+  }
+
+  /**
+   * Tip findMany
+   */
+  export type TipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter, which Tips to fetch.
+     */
+    where?: TipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Tips to fetch.
+     */
+    orderBy?: TipOrderByWithRelationInput | TipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Tips.
+     */
+    cursor?: TipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Tips from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Tips.
+     */
+    skip?: number
+    distinct?: TipScalarFieldEnum | TipScalarFieldEnum[]
+  }
+
+  /**
+   * Tip create
+   */
+  export type TipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Tip.
+     */
+    data: XOR<TipCreateInput, TipUncheckedCreateInput>
+  }
+
+  /**
+   * Tip createMany
+   */
+  export type TipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Tips.
+     */
+    data: TipCreateManyInput | TipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Tip createManyAndReturn
+   */
+  export type TipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * The data used to create many Tips.
+     */
+    data: TipCreateManyInput | TipCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tip update
+   */
+  export type TipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Tip.
+     */
+    data: XOR<TipUpdateInput, TipUncheckedUpdateInput>
+    /**
+     * Choose, which Tip to update.
+     */
+    where: TipWhereUniqueInput
+  }
+
+  /**
+   * Tip updateMany
+   */
+  export type TipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Tips.
+     */
+    data: XOR<TipUpdateManyMutationInput, TipUncheckedUpdateManyInput>
+    /**
+     * Filter which Tips to update
+     */
+    where?: TipWhereInput
+    /**
+     * Limit how many Tips to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tip updateManyAndReturn
+   */
+  export type TipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * The data used to update Tips.
+     */
+    data: XOR<TipUpdateManyMutationInput, TipUncheckedUpdateManyInput>
+    /**
+     * Filter which Tips to update
+     */
+    where?: TipWhereInput
+    /**
+     * Limit how many Tips to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Tip upsert
+   */
+  export type TipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Tip to update in case it exists.
+     */
+    where: TipWhereUniqueInput
+    /**
+     * In case the Tip found by the `where` argument doesn't exist, create a new Tip with this data.
+     */
+    create: XOR<TipCreateInput, TipUncheckedCreateInput>
+    /**
+     * In case the Tip was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TipUpdateInput, TipUncheckedUpdateInput>
+  }
+
+  /**
+   * Tip delete
+   */
+  export type TipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+    /**
+     * Filter which Tip to delete.
+     */
+    where: TipWhereUniqueInput
+  }
+
+  /**
+   * Tip deleteMany
+   */
+  export type TipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Tips to delete
+     */
+    where?: TipWhereInput
+    /**
+     * Limit how many Tips to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Tip without action
+   */
+  export type TipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tip
+     */
+    select?: TipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tip
+     */
+    omit?: TipOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TipInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -5620,6 +9270,44 @@ export namespace Prisma {
   };
 
   export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
+
+
+  export const ModuleScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    image: 'image',
+    status: 'status',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ModuleScalarFieldEnum = (typeof ModuleScalarFieldEnum)[keyof typeof ModuleScalarFieldEnum]
+
+
+  export const LessonScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    bubbleSpeech: 'bubbleSpeech',
+    timer: 'timer',
+    moduleId: 'moduleId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
+
+
+  export const TipScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    lessonId: 'lessonId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TipScalarFieldEnum = (typeof TipScalarFieldEnum)[keyof typeof TipScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -5984,6 +9672,201 @@ export namespace Prisma {
     expires?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
   }
 
+  export type ModuleWhereInput = {
+    AND?: ModuleWhereInput | ModuleWhereInput[]
+    OR?: ModuleWhereInput[]
+    NOT?: ModuleWhereInput | ModuleWhereInput[]
+    id?: StringFilter<"Module"> | string
+    title?: StringFilter<"Module"> | string
+    image?: StringFilter<"Module"> | string
+    status?: StringFilter<"Module"> | string
+    createdAt?: DateTimeFilter<"Module"> | Date | string
+    updatedAt?: DateTimeFilter<"Module"> | Date | string
+    lessons?: LessonListRelationFilter
+  }
+
+  export type ModuleOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lessons?: LessonOrderByRelationAggregateInput
+  }
+
+  export type ModuleWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ModuleWhereInput | ModuleWhereInput[]
+    OR?: ModuleWhereInput[]
+    NOT?: ModuleWhereInput | ModuleWhereInput[]
+    title?: StringFilter<"Module"> | string
+    image?: StringFilter<"Module"> | string
+    status?: StringFilter<"Module"> | string
+    createdAt?: DateTimeFilter<"Module"> | Date | string
+    updatedAt?: DateTimeFilter<"Module"> | Date | string
+    lessons?: LessonListRelationFilter
+  }, "id">
+
+  export type ModuleOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ModuleCountOrderByAggregateInput
+    _max?: ModuleMaxOrderByAggregateInput
+    _min?: ModuleMinOrderByAggregateInput
+  }
+
+  export type ModuleScalarWhereWithAggregatesInput = {
+    AND?: ModuleScalarWhereWithAggregatesInput | ModuleScalarWhereWithAggregatesInput[]
+    OR?: ModuleScalarWhereWithAggregatesInput[]
+    NOT?: ModuleScalarWhereWithAggregatesInput | ModuleScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Module"> | string
+    title?: StringWithAggregatesFilter<"Module"> | string
+    image?: StringWithAggregatesFilter<"Module"> | string
+    status?: StringWithAggregatesFilter<"Module"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Module"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Module"> | Date | string
+  }
+
+  export type LessonWhereInput = {
+    AND?: LessonWhereInput | LessonWhereInput[]
+    OR?: LessonWhereInput[]
+    NOT?: LessonWhereInput | LessonWhereInput[]
+    id?: StringFilter<"Lesson"> | string
+    title?: StringFilter<"Lesson"> | string
+    description?: StringFilter<"Lesson"> | string
+    bubbleSpeech?: StringNullableFilter<"Lesson"> | string | null
+    timer?: IntFilter<"Lesson"> | number
+    moduleId?: StringFilter<"Lesson"> | string
+    createdAt?: DateTimeFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+    tips?: TipListRelationFilter
+  }
+
+  export type LessonOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bubbleSpeech?: SortOrderInput | SortOrder
+    timer?: SortOrder
+    moduleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    module?: ModuleOrderByWithRelationInput
+    tips?: TipOrderByRelationAggregateInput
+  }
+
+  export type LessonWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: LessonWhereInput | LessonWhereInput[]
+    OR?: LessonWhereInput[]
+    NOT?: LessonWhereInput | LessonWhereInput[]
+    title?: StringFilter<"Lesson"> | string
+    description?: StringFilter<"Lesson"> | string
+    bubbleSpeech?: StringNullableFilter<"Lesson"> | string | null
+    timer?: IntFilter<"Lesson"> | number
+    moduleId?: StringFilter<"Lesson"> | string
+    createdAt?: DateTimeFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
+    module?: XOR<ModuleScalarRelationFilter, ModuleWhereInput>
+    tips?: TipListRelationFilter
+  }, "id">
+
+  export type LessonOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bubbleSpeech?: SortOrderInput | SortOrder
+    timer?: SortOrder
+    moduleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: LessonCountOrderByAggregateInput
+    _avg?: LessonAvgOrderByAggregateInput
+    _max?: LessonMaxOrderByAggregateInput
+    _min?: LessonMinOrderByAggregateInput
+    _sum?: LessonSumOrderByAggregateInput
+  }
+
+  export type LessonScalarWhereWithAggregatesInput = {
+    AND?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
+    OR?: LessonScalarWhereWithAggregatesInput[]
+    NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Lesson"> | string
+    title?: StringWithAggregatesFilter<"Lesson"> | string
+    description?: StringWithAggregatesFilter<"Lesson"> | string
+    bubbleSpeech?: StringNullableWithAggregatesFilter<"Lesson"> | string | null
+    timer?: IntWithAggregatesFilter<"Lesson"> | number
+    moduleId?: StringWithAggregatesFilter<"Lesson"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Lesson"> | Date | string
+  }
+
+  export type TipWhereInput = {
+    AND?: TipWhereInput | TipWhereInput[]
+    OR?: TipWhereInput[]
+    NOT?: TipWhereInput | TipWhereInput[]
+    id?: StringFilter<"Tip"> | string
+    title?: StringFilter<"Tip"> | string
+    description?: StringFilter<"Tip"> | string
+    lessonId?: StringFilter<"Tip"> | string
+    createdAt?: DateTimeFilter<"Tip"> | Date | string
+    updatedAt?: DateTimeFilter<"Tip"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+  }
+
+  export type TipOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    lesson?: LessonOrderByWithRelationInput
+  }
+
+  export type TipWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TipWhereInput | TipWhereInput[]
+    OR?: TipWhereInput[]
+    NOT?: TipWhereInput | TipWhereInput[]
+    title?: StringFilter<"Tip"> | string
+    description?: StringFilter<"Tip"> | string
+    lessonId?: StringFilter<"Tip"> | string
+    createdAt?: DateTimeFilter<"Tip"> | Date | string
+    updatedAt?: DateTimeFilter<"Tip"> | Date | string
+    lesson?: XOR<LessonScalarRelationFilter, LessonWhereInput>
+  }, "id">
+
+  export type TipOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TipCountOrderByAggregateInput
+    _max?: TipMaxOrderByAggregateInput
+    _min?: TipMinOrderByAggregateInput
+  }
+
+  export type TipScalarWhereWithAggregatesInput = {
+    AND?: TipScalarWhereWithAggregatesInput | TipScalarWhereWithAggregatesInput[]
+    OR?: TipScalarWhereWithAggregatesInput[]
+    NOT?: TipScalarWhereWithAggregatesInput | TipScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Tip"> | string
+    title?: StringWithAggregatesFilter<"Tip"> | string
+    description?: StringWithAggregatesFilter<"Tip"> | string
+    lessonId?: StringWithAggregatesFilter<"Tip"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Tip"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Tip"> | Date | string
+  }
+
   export type AccountCreateInput = {
     id?: string
     type: string
@@ -6282,6 +10165,215 @@ export namespace Prisma {
     identifier?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleCreateInput = {
+    id?: string
+    title: string
+    image: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lessons?: LessonCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleUncheckedCreateInput = {
+    id?: string
+    title: string
+    image: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lessons?: LessonUncheckedCreateNestedManyWithoutModuleInput
+  }
+
+  export type ModuleUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lessons?: LessonUpdateManyWithoutModuleNestedInput
+  }
+
+  export type ModuleUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lessons?: LessonUncheckedUpdateManyWithoutModuleNestedInput
+  }
+
+  export type ModuleCreateManyInput = {
+    id?: string
+    title: string
+    image: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonCreateInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    module: ModuleCreateNestedOneWithoutLessonsInput
+    tips?: TipCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    moduleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tips?: TipUncheckedCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    module?: ModuleUpdateOneRequiredWithoutLessonsNestedInput
+    tips?: TipUpdateManyWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    moduleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tips?: TipUncheckedUpdateManyWithoutLessonNestedInput
+  }
+
+  export type LessonCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    moduleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LessonUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    moduleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipCreateInput = {
+    id?: string
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    lesson: LessonCreateNestedOneWithoutTipsInput
+  }
+
+  export type TipUncheckedCreateInput = {
+    id?: string
+    title: string
+    description: string
+    lessonId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TipUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lesson?: LessonUpdateOneRequiredWithoutTipsNestedInput
+  }
+
+  export type TipUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lessonId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipCreateManyInput = {
+    id?: string
+    title: string
+    description: string
+    lessonId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TipUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lessonId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -6601,6 +10693,158 @@ export namespace Prisma {
     expires?: SortOrder
   }
 
+  export type LessonListRelationFilter = {
+    every?: LessonWhereInput
+    some?: LessonWhereInput
+    none?: LessonWhereInput
+  }
+
+  export type LessonOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ModuleCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModuleMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ModuleMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    image?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type ModuleScalarRelationFilter = {
+    is?: ModuleWhereInput
+    isNot?: ModuleWhereInput
+  }
+
+  export type TipListRelationFilter = {
+    every?: TipWhereInput
+    some?: TipWhereInput
+    none?: TipWhereInput
+  }
+
+  export type TipOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type LessonCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bubbleSpeech?: SortOrder
+    timer?: SortOrder
+    moduleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonAvgOrderByAggregateInput = {
+    timer?: SortOrder
+  }
+
+  export type LessonMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bubbleSpeech?: SortOrder
+    timer?: SortOrder
+    moduleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    bubbleSpeech?: SortOrder
+    timer?: SortOrder
+    moduleId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type LessonSumOrderByAggregateInput = {
+    timer?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type LessonScalarRelationFilter = {
+    is?: LessonWhereInput
+    isNot?: LessonWhereInput
+  }
+
+  export type TipCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TipMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TipMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lessonId?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutAccountsInput = {
     create?: XOR<UserCreateWithoutAccountsInput, UserUncheckedCreateWithoutAccountsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAccountsInput
@@ -6735,6 +10979,126 @@ export namespace Prisma {
     update?: SessionUpdateWithWhereUniqueWithoutUserInput | SessionUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SessionUpdateManyWithWhereWithoutUserInput | SessionUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SessionScalarWhereInput | SessionScalarWhereInput[]
+  }
+
+  export type LessonCreateNestedManyWithoutModuleInput = {
+    create?: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput> | LessonCreateWithoutModuleInput[] | LessonUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: LessonCreateOrConnectWithoutModuleInput | LessonCreateOrConnectWithoutModuleInput[]
+    createMany?: LessonCreateManyModuleInputEnvelope
+    connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+  }
+
+  export type LessonUncheckedCreateNestedManyWithoutModuleInput = {
+    create?: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput> | LessonCreateWithoutModuleInput[] | LessonUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: LessonCreateOrConnectWithoutModuleInput | LessonCreateOrConnectWithoutModuleInput[]
+    createMany?: LessonCreateManyModuleInputEnvelope
+    connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+  }
+
+  export type LessonUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput> | LessonCreateWithoutModuleInput[] | LessonUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: LessonCreateOrConnectWithoutModuleInput | LessonCreateOrConnectWithoutModuleInput[]
+    upsert?: LessonUpsertWithWhereUniqueWithoutModuleInput | LessonUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: LessonCreateManyModuleInputEnvelope
+    set?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    disconnect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    delete?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    update?: LessonUpdateWithWhereUniqueWithoutModuleInput | LessonUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: LessonUpdateManyWithWhereWithoutModuleInput | LessonUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: LessonScalarWhereInput | LessonScalarWhereInput[]
+  }
+
+  export type LessonUncheckedUpdateManyWithoutModuleNestedInput = {
+    create?: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput> | LessonCreateWithoutModuleInput[] | LessonUncheckedCreateWithoutModuleInput[]
+    connectOrCreate?: LessonCreateOrConnectWithoutModuleInput | LessonCreateOrConnectWithoutModuleInput[]
+    upsert?: LessonUpsertWithWhereUniqueWithoutModuleInput | LessonUpsertWithWhereUniqueWithoutModuleInput[]
+    createMany?: LessonCreateManyModuleInputEnvelope
+    set?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    disconnect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    delete?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    connect?: LessonWhereUniqueInput | LessonWhereUniqueInput[]
+    update?: LessonUpdateWithWhereUniqueWithoutModuleInput | LessonUpdateWithWhereUniqueWithoutModuleInput[]
+    updateMany?: LessonUpdateManyWithWhereWithoutModuleInput | LessonUpdateManyWithWhereWithoutModuleInput[]
+    deleteMany?: LessonScalarWhereInput | LessonScalarWhereInput[]
+  }
+
+  export type ModuleCreateNestedOneWithoutLessonsInput = {
+    create?: XOR<ModuleCreateWithoutLessonsInput, ModuleUncheckedCreateWithoutLessonsInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutLessonsInput
+    connect?: ModuleWhereUniqueInput
+  }
+
+  export type TipCreateNestedManyWithoutLessonInput = {
+    create?: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput> | TipCreateWithoutLessonInput[] | TipUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: TipCreateOrConnectWithoutLessonInput | TipCreateOrConnectWithoutLessonInput[]
+    createMany?: TipCreateManyLessonInputEnvelope
+    connect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+  }
+
+  export type TipUncheckedCreateNestedManyWithoutLessonInput = {
+    create?: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput> | TipCreateWithoutLessonInput[] | TipUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: TipCreateOrConnectWithoutLessonInput | TipCreateOrConnectWithoutLessonInput[]
+    createMany?: TipCreateManyLessonInputEnvelope
+    connect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type ModuleUpdateOneRequiredWithoutLessonsNestedInput = {
+    create?: XOR<ModuleCreateWithoutLessonsInput, ModuleUncheckedCreateWithoutLessonsInput>
+    connectOrCreate?: ModuleCreateOrConnectWithoutLessonsInput
+    upsert?: ModuleUpsertWithoutLessonsInput
+    connect?: ModuleWhereUniqueInput
+    update?: XOR<XOR<ModuleUpdateToOneWithWhereWithoutLessonsInput, ModuleUpdateWithoutLessonsInput>, ModuleUncheckedUpdateWithoutLessonsInput>
+  }
+
+  export type TipUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput> | TipCreateWithoutLessonInput[] | TipUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: TipCreateOrConnectWithoutLessonInput | TipCreateOrConnectWithoutLessonInput[]
+    upsert?: TipUpsertWithWhereUniqueWithoutLessonInput | TipUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: TipCreateManyLessonInputEnvelope
+    set?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    disconnect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    delete?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    connect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    update?: TipUpdateWithWhereUniqueWithoutLessonInput | TipUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: TipUpdateManyWithWhereWithoutLessonInput | TipUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: TipScalarWhereInput | TipScalarWhereInput[]
+  }
+
+  export type TipUncheckedUpdateManyWithoutLessonNestedInput = {
+    create?: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput> | TipCreateWithoutLessonInput[] | TipUncheckedCreateWithoutLessonInput[]
+    connectOrCreate?: TipCreateOrConnectWithoutLessonInput | TipCreateOrConnectWithoutLessonInput[]
+    upsert?: TipUpsertWithWhereUniqueWithoutLessonInput | TipUpsertWithWhereUniqueWithoutLessonInput[]
+    createMany?: TipCreateManyLessonInputEnvelope
+    set?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    disconnect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    delete?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    connect?: TipWhereUniqueInput | TipWhereUniqueInput[]
+    update?: TipUpdateWithWhereUniqueWithoutLessonInput | TipUpdateWithWhereUniqueWithoutLessonInput[]
+    updateMany?: TipUpdateManyWithWhereWithoutLessonInput | TipUpdateManyWithWhereWithoutLessonInput[]
+    deleteMany?: TipScalarWhereInput | TipScalarWhereInput[]
+  }
+
+  export type LessonCreateNestedOneWithoutTipsInput = {
+    create?: XOR<LessonCreateWithoutTipsInput, LessonUncheckedCreateWithoutTipsInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutTipsInput
+    connect?: LessonWhereUniqueInput
+  }
+
+  export type LessonUpdateOneRequiredWithoutTipsNestedInput = {
+    create?: XOR<LessonCreateWithoutTipsInput, LessonUncheckedCreateWithoutTipsInput>
+    connectOrCreate?: LessonCreateOrConnectWithoutTipsInput
+    upsert?: LessonUpsertWithoutTipsInput
+    connect?: LessonWhereUniqueInput
+    update?: XOR<XOR<LessonUpdateToOneWithWhereWithoutTipsInput, LessonUpdateWithoutTipsInput>, LessonUncheckedUpdateWithoutTipsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -6896,6 +11260,33 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedDateTimeNullableFilter<$PrismaModel>
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -7160,6 +11551,234 @@ export namespace Prisma {
     expires?: DateTimeFilter<"Session"> | Date | string
   }
 
+  export type LessonCreateWithoutModuleInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tips?: TipCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonUncheckedCreateWithoutModuleInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    tips?: TipUncheckedCreateNestedManyWithoutLessonInput
+  }
+
+  export type LessonCreateOrConnectWithoutModuleInput = {
+    where: LessonWhereUniqueInput
+    create: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput>
+  }
+
+  export type LessonCreateManyModuleInputEnvelope = {
+    data: LessonCreateManyModuleInput | LessonCreateManyModuleInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type LessonUpsertWithWhereUniqueWithoutModuleInput = {
+    where: LessonWhereUniqueInput
+    update: XOR<LessonUpdateWithoutModuleInput, LessonUncheckedUpdateWithoutModuleInput>
+    create: XOR<LessonCreateWithoutModuleInput, LessonUncheckedCreateWithoutModuleInput>
+  }
+
+  export type LessonUpdateWithWhereUniqueWithoutModuleInput = {
+    where: LessonWhereUniqueInput
+    data: XOR<LessonUpdateWithoutModuleInput, LessonUncheckedUpdateWithoutModuleInput>
+  }
+
+  export type LessonUpdateManyWithWhereWithoutModuleInput = {
+    where: LessonScalarWhereInput
+    data: XOR<LessonUpdateManyMutationInput, LessonUncheckedUpdateManyWithoutModuleInput>
+  }
+
+  export type LessonScalarWhereInput = {
+    AND?: LessonScalarWhereInput | LessonScalarWhereInput[]
+    OR?: LessonScalarWhereInput[]
+    NOT?: LessonScalarWhereInput | LessonScalarWhereInput[]
+    id?: StringFilter<"Lesson"> | string
+    title?: StringFilter<"Lesson"> | string
+    description?: StringFilter<"Lesson"> | string
+    bubbleSpeech?: StringNullableFilter<"Lesson"> | string | null
+    timer?: IntFilter<"Lesson"> | number
+    moduleId?: StringFilter<"Lesson"> | string
+    createdAt?: DateTimeFilter<"Lesson"> | Date | string
+    updatedAt?: DateTimeFilter<"Lesson"> | Date | string
+  }
+
+  export type ModuleCreateWithoutLessonsInput = {
+    id?: string
+    title: string
+    image: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleUncheckedCreateWithoutLessonsInput = {
+    id?: string
+    title: string
+    image: string
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ModuleCreateOrConnectWithoutLessonsInput = {
+    where: ModuleWhereUniqueInput
+    create: XOR<ModuleCreateWithoutLessonsInput, ModuleUncheckedCreateWithoutLessonsInput>
+  }
+
+  export type TipCreateWithoutLessonInput = {
+    id?: string
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TipUncheckedCreateWithoutLessonInput = {
+    id?: string
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TipCreateOrConnectWithoutLessonInput = {
+    where: TipWhereUniqueInput
+    create: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput>
+  }
+
+  export type TipCreateManyLessonInputEnvelope = {
+    data: TipCreateManyLessonInput | TipCreateManyLessonInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ModuleUpsertWithoutLessonsInput = {
+    update: XOR<ModuleUpdateWithoutLessonsInput, ModuleUncheckedUpdateWithoutLessonsInput>
+    create: XOR<ModuleCreateWithoutLessonsInput, ModuleUncheckedCreateWithoutLessonsInput>
+    where?: ModuleWhereInput
+  }
+
+  export type ModuleUpdateToOneWithWhereWithoutLessonsInput = {
+    where?: ModuleWhereInput
+    data: XOR<ModuleUpdateWithoutLessonsInput, ModuleUncheckedUpdateWithoutLessonsInput>
+  }
+
+  export type ModuleUpdateWithoutLessonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ModuleUncheckedUpdateWithoutLessonsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    image?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipUpsertWithWhereUniqueWithoutLessonInput = {
+    where: TipWhereUniqueInput
+    update: XOR<TipUpdateWithoutLessonInput, TipUncheckedUpdateWithoutLessonInput>
+    create: XOR<TipCreateWithoutLessonInput, TipUncheckedCreateWithoutLessonInput>
+  }
+
+  export type TipUpdateWithWhereUniqueWithoutLessonInput = {
+    where: TipWhereUniqueInput
+    data: XOR<TipUpdateWithoutLessonInput, TipUncheckedUpdateWithoutLessonInput>
+  }
+
+  export type TipUpdateManyWithWhereWithoutLessonInput = {
+    where: TipScalarWhereInput
+    data: XOR<TipUpdateManyMutationInput, TipUncheckedUpdateManyWithoutLessonInput>
+  }
+
+  export type TipScalarWhereInput = {
+    AND?: TipScalarWhereInput | TipScalarWhereInput[]
+    OR?: TipScalarWhereInput[]
+    NOT?: TipScalarWhereInput | TipScalarWhereInput[]
+    id?: StringFilter<"Tip"> | string
+    title?: StringFilter<"Tip"> | string
+    description?: StringFilter<"Tip"> | string
+    lessonId?: StringFilter<"Tip"> | string
+    createdAt?: DateTimeFilter<"Tip"> | Date | string
+    updatedAt?: DateTimeFilter<"Tip"> | Date | string
+  }
+
+  export type LessonCreateWithoutTipsInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    module: ModuleCreateNestedOneWithoutLessonsInput
+  }
+
+  export type LessonUncheckedCreateWithoutTipsInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    moduleId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LessonCreateOrConnectWithoutTipsInput = {
+    where: LessonWhereUniqueInput
+    create: XOR<LessonCreateWithoutTipsInput, LessonUncheckedCreateWithoutTipsInput>
+  }
+
+  export type LessonUpsertWithoutTipsInput = {
+    update: XOR<LessonUpdateWithoutTipsInput, LessonUncheckedUpdateWithoutTipsInput>
+    create: XOR<LessonCreateWithoutTipsInput, LessonUncheckedCreateWithoutTipsInput>
+    where?: LessonWhereInput
+  }
+
+  export type LessonUpdateToOneWithWhereWithoutTipsInput = {
+    where?: LessonWhereInput
+    data: XOR<LessonUpdateWithoutTipsInput, LessonUncheckedUpdateWithoutTipsInput>
+  }
+
+  export type LessonUpdateWithoutTipsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    module?: ModuleUpdateOneRequiredWithoutLessonsNestedInput
+  }
+
+  export type LessonUncheckedUpdateWithoutTipsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    moduleId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AccountCreateManyUserInput = {
     id?: string
     type: string
@@ -7246,6 +11865,80 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sessionToken?: StringFieldUpdateOperationsInput | string
     expires?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type LessonCreateManyModuleInput = {
+    id?: string
+    title: string
+    description: string
+    bubbleSpeech?: string | null
+    timer?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type LessonUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tips?: TipUpdateManyWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tips?: TipUncheckedUpdateManyWithoutLessonNestedInput
+  }
+
+  export type LessonUncheckedUpdateManyWithoutModuleInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    bubbleSpeech?: NullableStringFieldUpdateOperationsInput | string | null
+    timer?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipCreateManyLessonInput = {
+    id?: string
+    title: string
+    description: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TipUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipUncheckedUpdateWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TipUncheckedUpdateManyWithoutLessonInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 
