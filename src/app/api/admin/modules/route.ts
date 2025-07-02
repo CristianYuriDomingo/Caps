@@ -15,7 +15,6 @@ export async function GET() {
 
     const modules = await prisma.module.findMany({
       include: {
-        lessons: true,
         _count: {
           select: {
             lessons: true
@@ -32,8 +31,7 @@ export async function GET() {
       id: module.id,
       title: module.title,
       image: module.image,
-      lessonCount: module._count.lessons,
-      status: module.status as 'active' | 'inactive'
+      lessonCount: module._count.lessons
     }));
 
     return NextResponse.json(transformedModules);
@@ -53,7 +51,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, image, status = 'active' } = body;
+    const { title, image } = body;
 
     if (!title || !image) {
       return NextResponse.json({ error: 'Title and image are required' }, { status: 400 });
@@ -62,8 +60,7 @@ export async function POST(request: NextRequest) {
     const module = await prisma.module.create({
       data: {
         title,
-        image,
-        status
+        image
       }
     });
 
@@ -71,11 +68,57 @@ export async function POST(request: NextRequest) {
       id: module.id,
       title: module.title,
       image: module.image,
-      lessonCount: 0,
-      status: module.status as 'active' | 'inactive'
+      lessonCount: 0
     });
   } catch (error) {
     console.error('Error creating module:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+// PUT - Update a module
+export async function PUT(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { id, title, image } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: 'Module ID is required' }, { status: 400 });
+    }
+
+    if (!title || !image) {
+      return NextResponse.json({ error: 'Title and image are required' }, { status: 400 });
+    }
+
+    const module = await prisma.module.update({
+      where: { id },
+      data: {
+        title,
+        image
+      },
+      include: {
+        _count: {
+          select: {
+            lessons: true
+          }
+        }
+      }
+    });
+
+    return NextResponse.json({
+      id: module.id,
+      title: module.title,
+      image: module.image,
+      lessonCount: module._count.lessons
+    });
+  } catch (error) {
+    console.error('Error updating module:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
@@ -96,11 +139,31 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'Module ID is required' }, { status: 400 });
     }
 
+    // First check if the module exists and has lessons
+    const moduleWithLessons = await prisma.module.findUnique({
+      where: { id: moduleId },
+      include: {
+        _count: {
+          select: {
+            lessons: true
+          }
+        }
+      }
+    });
+
+    if (!moduleWithLessons) {
+      return NextResponse.json({ error: 'Module not found' }, { status: 404 });
+    }
+
+    // Delete the module (lessons will be deleted automatically due to cascade)
     await prisma.module.delete({
       where: { id: moduleId }
     });
 
-    return NextResponse.json({ message: 'Module deleted successfully' });
+    return NextResponse.json({ 
+      message: 'Module deleted successfully',
+      deletedLessons: moduleWithLessons._count.lessons
+    });
   } catch (error) {
     console.error('Error deleting module:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

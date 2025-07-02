@@ -49,12 +49,12 @@ model User {
   image         String?
   password      String?   // For credentials provider
   role          String    @default("user") // Custom field
+  status        String    @default("active") // Add this field for user status
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
 }
-
 model VerificationToken {
   identifier String
   token      String   @unique
