@@ -31,14 +31,14 @@ const SignInPage = () => {
     
     try {
       const result = await signIn(provider, {
-        callbackUrl: '/dashboard',
+        callbackUrl: '/users/dashboard',
         redirect: false
       });
       
       if (result?.error) {
         setError(`${provider.charAt(0).toUpperCase() + provider.slice(1)} sign-in failed. Please try again.`);
       } else if (result?.ok) {
-        router.push('/dashboard');
+        router.push('/users/dashboard');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');
@@ -62,7 +62,7 @@ const SignInPage = () => {
       if (result?.error) {
         setError('Invalid email or password. Please try again.');
       } else if (result?.ok) {
-        router.push('/dashboard');
+        router.push('/users/dashboard');
       }
     } catch (err) {
       setError('Something went wrong. Please try again.');

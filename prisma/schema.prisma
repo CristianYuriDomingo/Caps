@@ -68,7 +68,6 @@ model Module {
   id          String   @id @default(cuid())
   title       String
   image       String
-  status      String   @default("active") // 'active' or 'inactive'
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   

@@ -1,3 +1,4 @@
+// middleware.ts
 import { withAuth } from "next-auth/middleware"
 import { NextResponse } from "next/server"
 
@@ -5,7 +6,7 @@ export default withAuth(
   function middleware(req) {
     // Redirect admin users trying to access user dashboard
     if (
-      req.nextUrl.pathname.startsWith("/dashboard") &&
+      req.nextUrl.pathname.startsWith("/users/dashboard") &&
       req.nextauth.token?.role === "admin"
     ) {
       return NextResponse.redirect(new URL("/admin", req.url))
@@ -16,7 +17,7 @@ export default withAuth(
       req.nextUrl.pathname.startsWith("/admin") &&
       req.nextauth.token?.role !== "admin"
     ) {
-      return NextResponse.redirect(new URL("/dashboard", req.url))
+      return NextResponse.redirect(new URL("/users/dashboard", req.url))
     }
   },
   {
@@ -27,5 +28,5 @@ export default withAuth(
 )
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/admin/:path*"],
+  matcher: ["/users/dashboard/:path*", "/admin/:path*"],
 }
