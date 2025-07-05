@@ -15,6 +15,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [isDropdownVisible, setDropdownVisible] = useState(true);
+  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const handleSignOut = async () => {
     await signOut({
@@ -25,25 +26,25 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
 
   const navigation = [
     { 
-      name: 'Dashboard', 
+      name: 'Learning Modules', 
       href: '/users/dashboard', 
       icon: '/DashboardImage/dashboard.png',
       alt: 'Dashboard'
     },
     { 
-      name: 'Reports', 
+      name: 'Quiz', 
       href: '/users/reports', 
       icon: '/DashboardImage/reports.png',
       alt: 'Reports'
     },
     { 
-      name: 'Alerts', 
+      name: 'Achievements', 
       href: '/users/alerts', 
       icon: '/DashboardImage/alerts.png',
       alt: 'Alerts'
     },
     { 
-      name: 'Profile', 
+      name: 'Quest', 
       href: '/users/profile', 
       icon: '/DashboardImage/profile.png',
       alt: 'Profile'
@@ -61,10 +62,34 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
       {/* Sidebar */}
       <aside
         id="logo-sidebar"
-        className="fixed top-0 left-0 z-40 w-72 h-full bg-white dark:bg-gray-800 hidden sm:block"
+        className={`fixed top-0 left-0 z-40 w-72 h-full bg-white dark:bg-gray-800 transition-transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } sm:translate-x-0`}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
+          {/* Close button for mobile - only shows when sidebar is open and on mobile */}
+          <button
+            onClick={() => setSidebarOpen(false)}
+            className="absolute top-4 right-4 p-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded-lg transition-colors duration-200 sm:hidden"
+            aria-label="Close sidebar"
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+
           {/* Logo */}
           <a href="/users/dashboard" className="flex justify-center items-center mb-5">
             <Image
@@ -174,8 +199,47 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
 
       {/* Main content */}
       <div className="flex-1 p-4 sm:ml-72">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md h-full overflow-hidden">
-          {children}
+        {/* Mobile sidebar toggle button */}
+        <button
+          onClick={() => setSidebarOpen(!isSidebarOpen)}
+          className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none mb-4"
+        >
+          <span className="sr-only">Open sidebar</span>
+          <svg
+            className="w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              fillRule="evenodd"
+              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+            ></path>
+          </svg>
+        </button>
+
+        {/* Two-column layout */}
+        <div className="flex flex-col lg:flex-row w-full gap-4">
+          {/* Left column - 70% */}
+          <div className="w-full lg:w-[70%]">
+            <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md h-full overflow-hidden p-6">
+              {children}
+            </div>
+          </div>
+          
+          {/* Right column - 30% */}
+          <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
+            {/* Placeholder content for right column */}
+            <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+                Right Column Content
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300">
+                This is the right column placeholder. You can add any content here.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
