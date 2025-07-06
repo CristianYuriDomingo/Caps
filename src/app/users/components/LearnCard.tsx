@@ -34,13 +34,13 @@ const LearnCard: React.FC<LearnCardProps> = ({
 
   return (
     <div
-      className={`relative w-full max-w-[160px] sm:max-w-[208px] md:max-w-[240px] h-56 sm:h-68 md:h-80 bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
+      className={`relative w-full max-w-[180px] sm:max-w-[220px] md:max-w-[250px] h-56 sm:h-68 md:h-80 bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
         isAvailable ? 'hover:scale-105 cursor-pointer' : 'opacity-75'
       }`}
       onClick={onCardClick}
     >
       {/* Image Container - takes up 70% of card height */}
-      <div className="relative w-full h-[70%] bg-gradient-to-br from-blue-50 to-blue-100 rounded-t-2xl overflow-hidden">
+      <div className="relative w-full h-[70%] bg-gradient-to-br from-blue-50 to-blue-100 overflow-hidden">
         {!imageError && imageSrc ? (
           <img
             src={imageSrc}
@@ -81,10 +81,13 @@ const LearnCard: React.FC<LearnCardProps> = ({
         </div>
       </div>
 
-      {/* Content Section - now takes up 30% of card height */}
-      <div className="bg-white rounded-b-2xl py-3 px-4 h-[30%] flex flex-col justify-center">
+      {/* Content Section with Fading Gradient Overlay - takes up 30% of card height */}
+      <div className="relative bg-white py-3 px-4 h-[30%] flex flex-col justify-center">
+        {/* Fading gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-500/20 via-blue-300/10 to-transparent"></div>
+        
         {/* Title and Lessons Info */}
-        <div className="text-left">
+        <div className="relative text-left z-10">
           <h3 className="text-blue-600 font-bold text-sm sm:text-base md:text-lg mb-1 line-clamp-2 leading-tight">{title}</h3>
           <p className="text-blue-500 text-xs sm:text-sm font-medium">{lessons}</p>
         </div>
