@@ -164,6 +164,7 @@ export default function DashboardPage() {
               return (
                 <LearnCard
                   key={module.id}
+                  moduleId={module.id} // Added moduleId prop
                   imageSrc={module.imageSrc}
                   title={module.title}
                   lessons={module.lessons}
