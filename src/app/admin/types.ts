@@ -11,6 +11,7 @@ export interface Tip {
   id: string;
   title: string;
   description: string;
+  image?: string; // Add the optional image field
 }
 
 export interface Lesson {

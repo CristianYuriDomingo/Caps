@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
           data: tips.map((tip: any) => ({
             title: tip.title,
             description: tip.description,
+            image: tip.image || null,
             lessonId: lesson.id
           }))
         });
@@ -86,6 +87,73 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result);
   } catch (error) {
     console.error('Error creating lesson:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+
+// PUT - Update an existing lesson
+export async function PUT(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const lessonId = searchParams.get('id');
+
+    if (!lessonId) {
+      return NextResponse.json({ error: 'Lesson ID is required' }, { status: 400 });
+    }
+
+    const body = await request.json();
+    const { title, description, bubbleSpeech, timer, tips } = body;
+
+    if (!title || !description) {
+      return NextResponse.json({ error: 'Title and description are required' }, { status: 400 });
+    }
+
+    // Update lesson with tips in a transaction
+    const result = await prisma.$transaction(async (prisma) => {
+      // Update the lesson
+      const lesson = await prisma.lesson.update({
+        where: { id: lessonId },
+        data: {
+          title,
+          description,
+          bubbleSpeech: bubbleSpeech || '',
+          timer: timer || 300
+        }
+      });
+
+      // Delete existing tips
+      await prisma.tip.deleteMany({
+        where: { lessonId }
+      });
+
+      // Create new tips if provided
+      if (tips && tips.length > 0) {
+        await prisma.tip.createMany({
+          data: tips.map((tip: any) => ({
+            title: tip.title,
+            description: tip.description,
+            image: tip.image || null,
+            lessonId: lesson.id
+          }))
+        });
+      }
+
+      // Return updated lesson with tips
+      return await prisma.lesson.findUnique({
+        where: { id: lesson.id },
+        include: { tips: true }
+      });
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error('Error updating lesson:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

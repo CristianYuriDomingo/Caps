@@ -55,6 +55,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
 }
+
 model VerificationToken {
   identifier String
   token      String   @unique
@@ -81,7 +82,7 @@ model Lesson {
   title        String
   description  String
   bubbleSpeech String?
-  timer        Int      @default(300) // in seconds
+  timer        Int      @default(300) // Changed from 50 to 300 seconds (5 minutes)
   moduleId     String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -96,6 +97,7 @@ model Tip {
   id          String   @id @default(cuid())
   title       String
   description String
+  image       String?  // Optional image for tips
   lessonId    String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
