@@ -81,9 +81,9 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
   continueButtonText = "Continue Reading",
   backButtonText = "Back",
   moduleId = "sample-module",
-  speechBubbleMessages = ["Say No to Smoking", "Protect Your Health and Others!"],
-  moduleTitle = "Anti Smoking",
-  moduleDescription = "Learn about the dangers of smoking and how to promote a smoke-free environment for a healthier community.",
+  speechBubbleMessages = ["Say No to Smoking", "Protect Your Health and Others!"],//this is the speech bubble messages
+  moduleTitle = "Anti Smoking",// this is the lesson title
+  moduleDescription = "Learn about the dangers of smoking and how to promote a smoke-free environment for a healthier community.",// this is the lesson description
   characterImage = "https://via.placeholder.com/80x80/3B82F6/FFFFFF?text=👨‍🏫",
   iconImage = "https://via.placeholder.com/32x32/3B82F6/FFFFFF?text=🎯"
 }) => {
@@ -95,21 +95,21 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
   const sampleSlides = slides && slides.length > 0 ? slides : [
     {
       id: "1",
-      image: "https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Slide+1",
-      title: "Welcome to Our Carousel",
-      content: "This is the first slide of our beautiful carousel component. It features a clean design with smooth transitions and responsive layout."
+      image: "https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Slide+1",//this is tip image 1
+      title: "Welcome to Our Carousel",//this is tip title 1
+      content: "This is the first slide of our beautiful carousel component. It features a clean design with smooth transitions and responsive layout."//this is tip description 1
     },
     {
       id: "2", 
-      image: "https://via.placeholder.com/600x400/10B981/FFFFFF?text=Slide+2",
-      title: "Features Overview",
-      content: "Our carousel includes desktop and mobile responsive designs, navigation controls, progress indicators, and customizable styling options."
+      image: "https://via.placeholder.com/600x400/10B981/FFFFFF?text=Slide+2",//this is tip image 2
+      title: "Features Overview",//this is tip title 2
+      content: "Our carousel includes desktop and mobile responsive designs, navigation controls, progress indicators, and customizable styling options."//this is tip description 2
     },
     {
       id: "3",
-      image: "https://via.placeholder.com/600x400/F59E0B/FFFFFF?text=Slide+3",
-      title: "Getting Started",
-      content: "You can easily customize the theme colors, button text, and handle completion events. The component is fully responsive and works great on all devices."
+      image: "https://via.placeholder.com/600x400/F59E0B/FFFFFF?text=Slide+3",//this is tip image 3
+      title: "Getting Started",//this is tip title 3
+      content: "You can easily customize the theme colors, button text, and handle completion events. The component is fully responsive and works great on all devices."//this is tip description 3
     }
   ];
 
