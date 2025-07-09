@@ -65,9 +65,8 @@ export async function fetchUserModules(): Promise<ApiResponse<UserModule[]>> {
  * Navigate to module details or lessons
  */
 export function handleModuleClick(moduleId: string, title: string) {
-  // For now, just show an alert
-  // Later, you can navigate to module details or lessons
-  alert(`Opening module: ${title} (ID: ${moduleId})`);
+  // Removed the alert that was causing the popup
+  console.log(`Opening module: ${title} (ID: ${moduleId})`);
   
   // Future implementation:
   // router.push(`/users/modules/${moduleId}`);

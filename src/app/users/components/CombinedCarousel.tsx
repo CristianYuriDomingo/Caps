@@ -33,6 +33,7 @@ type CombinedCarouselProps = {
   iconImage?: string;
   timerDuration?: number;
   timerColor?: string;
+  onExit?: () => void;
 };
 
 // Speech Bubble Component with hardcoded image
@@ -93,12 +94,12 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
   speechBubbleMessages = ["Say No to Smoking", "Protect Your Health and Others!"],
   moduleTitle = "Anti Smoking",
   moduleDescription = "Learn about the dangers of smoking and how to promote a smoke-free environment for a healthier community.",
-  characterImage = "https://via.placeholder.com/80x80/3B82F6/FFFFFF?text=👨‍🏫",
-  iconImage = "https://via.placeholder.com/32x32/3B82F6/FFFFFF?text=🎯",
+  characterImage = "/MainImage/1.png",
+  iconImage = "/MainImage/1.png",
   timerDuration = 10,
-  timerColor = "red"
+  timerColor = "red",
+  onExit
 }) => {
-  const [showContent, setShowContent] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(timerDuration);
@@ -180,8 +181,10 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
   }, [currentSlide, timerDuration]);
 
   const handleClose = () => {
-    setShowContent(false);
-    console.log("Navigating back to Learn page");
+    if (onExit) {
+      onExit();
+    }
+    // If no onExit is provided, do nothing - let the parent handle it
   };
 
   const nextSlide = () => {
@@ -215,14 +218,6 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
     }
   };
 
-  if (!showContent) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <p className="text-gray-600">Returned to Learn page</p>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Background decorative elements */}
@@ -237,7 +232,7 @@ const CombinedCarousel: React.FC<CombinedCarouselProps> = ({
       <button
         className="fixed top-2 left-4 bg-white rounded-full p-2.5 shadow-md text-gray-500 hover:text-gray-700 hover:shadow-lg transition-all z-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
         onClick={handleClose}
-        aria-label="Close and return to Learn page"
+        aria-label="Close and return to Dashboard"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="18" y1="6" x2="6" y2="18"></line>

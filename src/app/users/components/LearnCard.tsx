@@ -38,12 +38,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, imageSrc }) =>
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
       <div className="relative w-full max-w-md p-6 bg-white rounded-lg shadow-lg mx-4">
-        {/* Image - Stays at the top */}
+        {/* Image - Stays at the top with NO RADIUS and NO BORDER */}
         <div className="absolute -top-14 left-1/2 transform -translate-x-1/2">
           <img
             src={imageSrc || "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=128&h=128&fit=crop&crop=face"}
             alt="Modal Image"
-            className="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+            className="w-32 h-32 object-cover shadow-lg"
           />
         </div>
 
@@ -111,7 +111,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
 
   const handleLessonClick = (lessonId: string, lessonTitle: string) => {
     closeModal();
-    // Navigate to the lesson page
+    // Navigate to the lesson page without alert
     router.push(`/users/lessons/${lessonId}`);
     onCardClick?.(); // Call the original onCardClick function if provided
   };
