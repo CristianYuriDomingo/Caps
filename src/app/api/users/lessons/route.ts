@@ -5,7 +5,7 @@
  * 
  * Key features:
  * - Only GET operations (read-only for users)
- * - Returns lessons for a specific module
+ * - Returns lessons for a specific module with all related data
  * - No authentication required (lessons are public content)
  * - Returns data formatted for user interface
  */
@@ -42,21 +42,25 @@ export async function GET(request: NextRequest) {
       }, { status: 404 });
     }
 
-    // Fetch lessons for the module
+    // Fetch lessons for the module with all related data
     const lessons = await prisma.lesson.findMany({
       where: { moduleId },
+      include: {
+        tips: {
+          orderBy: {
+            createdAt: 'asc'
+          }
+        },
+        module: {
+          select: {
+            id: true,
+            title: true,
+            image: true
+          }
+        }
+      },
       orderBy: {
         createdAt: 'asc'
-      },
-      select: {
-        id: true,
-        title: true,
-        description: true,
-        bubbleSpeech: true,
-        timer: true,
-        moduleId: true,
-        createdAt: true,
-        updatedAt: true
       }
     });
 

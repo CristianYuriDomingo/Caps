@@ -1,6 +1,8 @@
 // app/api/admin/lessons/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
+import { getServerSession } from 'next-auth/next';
+import { authOptions } from '@/lib/auth';
 
 const prisma = new PrismaClient();
 
@@ -10,6 +12,13 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Add authentication check
+    const session = await getServerSession(authOptions);
+    
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = params;
 
     const lesson = await prisma.lesson.findUnique({
@@ -53,9 +62,24 @@ export async function PUT(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Add authentication check
+    const session = await getServerSession(authOptions);
+    
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = params;
     const body = await request.json();
     const { title, description, bubbleSpeech, timer, tips } = body;
+
+    // Validation
+    if (!title || !description) {
+      return NextResponse.json(
+        { error: 'Title and description are required' },
+        { status: 400 }
+      );
+    }
 
     // Check if lesson exists
     const existingLesson = await prisma.lesson.findUnique({
@@ -76,10 +100,10 @@ export async function PUT(
       const lesson = await prisma.lesson.update({
         where: { id },
         data: {
-          ...(title && { title: title.trim() }),
-          ...(description && { description: description.trim() }),
-          ...(bubbleSpeech !== undefined && { bubbleSpeech: bubbleSpeech.trim() }),
-          ...(timer && { timer: timer })
+          title: title.trim(),
+          description: description.trim(),
+          bubbleSpeech: bubbleSpeech?.trim() || '',
+          timer: timer || 300
         }
       });
 
@@ -96,7 +120,8 @@ export async function PUT(
             data: tips.map((tip: any) => ({
               lessonId: id,
               title: tip.title.trim(),
-              description: tip.description.trim()
+              description: tip.description.trim(),
+              image: tip.image || null
             }))
           });
         }
@@ -138,6 +163,13 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Add authentication check
+    const session = await getServerSession(authOptions);
+    
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
     const { id } = params;
 
     // Check if lesson exists

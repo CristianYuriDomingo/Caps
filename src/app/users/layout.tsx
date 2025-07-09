@@ -17,6 +17,9 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
   const [isDropdownVisible, setDropdownVisible] = useState(true);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
+  // Check if current page is a lesson page
+  const isLessonPage = pathname.includes('/lessons/');
+
   const handleSignOut = async () => {
     await signOut({
       callbackUrl: '/auth/signin',
@@ -57,6 +60,16 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     },
   ];
 
+  // If it's a lesson page, render without sidebar
+  if (isLessonPage) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        {children}
+      </div>
+    );
+  }
+
+  // Default dashboard layout with sidebar
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Decorative fixed blobs */}

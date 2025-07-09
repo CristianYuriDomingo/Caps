@@ -1,25 +1,13 @@
-/**
- * LearnCard Component for displaying learning modules
- * Used in user dashboard to show available courses/modules
- * 
- * Props:
- * - imageSrc: URL for module image (from admin uploaded images)
- * - title: Module title
- * - lessons: Formatted lesson count (e.g., "5 Lessons")
- * - buttonText: Text for action button
- * - onCardClick: Function to handle card/button clicks
- * - isAvailable: Whether module is available (optional)
- * - moduleId: ID of the module (required for fetching lessons)
- */
-
+// components/LearnCard.tsx
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface LearnCardProps {
   imageSrc: string;
   title: string;
   lessons: string;
   buttonText: string;
-  moduleId: string; // Added moduleId prop
+  moduleId: string;
   onCardClick?: () => void;
   isAvailable?: boolean;
 }
@@ -83,6 +71,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
   onCardClick,
   isAvailable = true
 }) => {
+  const router = useRouter();
   const [imageError, setImageError] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [moduleLessons, setModuleLessons] = useState<Lesson[]>([]);
@@ -122,18 +111,17 @@ const LearnCard: React.FC<LearnCardProps> = ({
 
   const handleLessonClick = (lessonId: string, lessonTitle: string) => {
     closeModal();
-    onCardClick?.(); // Call the original onCardClick function
-    // You can add additional logic here to handle lesson navigation
-    console.log('Selected lesson:', { lessonId, lessonTitle, moduleId });
+    // Navigate to the lesson page
+    router.push(`/users/lessons/${lessonId}`);
+    onCardClick?.(); // Call the original onCardClick function if provided
   };
 
   return (
     <>
       <div
         className={`relative w-full max-w-[180px] sm:max-w-[220px] md:max-w-[250px] h-56 sm:h-68 md:h-80 bg-white shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden ${
-          isAvailable ? 'hover:scale-105 cursor-pointer' : 'opacity-75'
+          isAvailable ? 'hover:scale-105' : 'opacity-75'
         }`}
-        onClick={onCardClick}
       >
         {/* Image Container - takes up 70% of card height */}
         <div className="relative w-full h-[70%] bg-gradient-to-br from-blue-50 to-blue-100 overflow-hidden">
@@ -164,7 +152,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
               onClick={(e) => {
                 e.stopPropagation();
                 if (isAvailable) {
-                  openModal(); // Open modal instead of calling onCardClick directly
+                  openModal(); // Open modal on button click only
                 }
               }}
               disabled={!isAvailable}
