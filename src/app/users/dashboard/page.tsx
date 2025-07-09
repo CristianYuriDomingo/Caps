@@ -6,11 +6,13 @@
  * Features:
  * - Authentication check (redirects unauthenticated users)
  * - Admin redirect (sends admins to admin dashboard)
+ * - Search functionality for modules and lessons
  * - Shows learning modules using LearnCard components
  * - Fetches data from user-facing API
  * 
  * Layout:
  * - Welcome message
+ * - Search bar
  * - Learning modules grid
  */
 
@@ -20,6 +22,7 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import LearnCard from '../components/LearnCard';
+import SearchBar from '../components/SearchBar'; // Import the SearchBar component
 import { fetchUserModules, handleModuleClick, UserModule } from '../lib/api';
 
 export default function DashboardPage() {
@@ -121,6 +124,11 @@ export default function DashboardPage() {
           <p className="text-gray-600 dark:text-gray-400">
             Continue your learning journey
           </p>
+        </div>
+
+        {/* Search Bar Section */}
+        <div className="mb-8">
+          <SearchBar />
         </div>
 
         {/* Learning Modules Section */}
