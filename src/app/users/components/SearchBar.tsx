@@ -3,7 +3,6 @@
 import { useState, FormEvent, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Modal from './Modal'; // Your LessonLearn modal
 import CombinedCarousel from './CombinedCarousel'; // Import your carousel component
 
 interface SearchBarProps {
@@ -33,34 +32,49 @@ interface ApiResponse {
   error?: string;
 }
 
-// Sample slides data for the carousel (you can replace this with actual data)
-const sampleSlides = [
-  {
-    id: "1",
-    image: "https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Lesson+Content",
-    title: "Lesson Overview",
-    content: "This is the content of your lesson. You can customize this based on the selected lesson or module."
-  },
-  {
-    id: "2", 
-    image: "https://via.placeholder.com/600x400/10B981/FFFFFF?text=Learning+Material",
-    title: "Key Concepts",
-    content: "Here are the main concepts and learning materials for this lesson."
-  },
-  {
-    id: "3",
-    image: "https://via.placeholder.com/600x400/F59E0B/FFFFFF?text=Summary",
-    title: "Summary",
-    content: "This is the summary of what you've learned in this lesson."
-  }
-];
+// Modal Component - Only for module selection now
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: React.ReactNode;
+  imageSrc?: string;
+}
+
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, imageSrc }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="relative w-full max-w-md p-6 bg-white rounded-lg shadow-lg mx-4">
+        {/* Image - Stays at the top with NO RADIUS and NO BORDER */}
+        <div className="absolute -top-14 left-1/2 transform -translate-x-1/2">
+          <img
+            src={imageSrc || "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=128&h=128&fit=crop&crop=face"}
+            alt="Modal Image"
+            className="w-32 h-32 object-cover shadow-lg"
+          />
+        </div>
+
+        {/* Close Button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-4 right-4 text-blue-500 hover:text-gray-900 text-xl font-bold transition-colors duration-200"
+        >
+          ✖
+        </button>
+
+        {/* Push content down to accommodate the image */}
+        <div className="mt-14">{children}</div>
+      </div>
+    </div>
+  );
+};
 
 const SearchBar: React.FC<SearchBarProps> = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResults, setSearchResults] = useState<LessonCategory[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [selectedLesson, setSelectedLesson] = useState<Lesson | null>(null);
   const [selectedModule, setSelectedModule] = useState<LessonCategory | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -148,18 +162,16 @@ const SearchBar: React.FC<SearchBarProps> = () => {
     }
   };
 
-  // Handle clicking on a specific lesson
+  // Handle clicking on a specific lesson - Navigate to lesson page
   const handleLessonClick = (lesson: Lesson) => {
-    setSelectedLesson(lesson);
-    setSelectedModule(null);
-    setIsModalOpen(true);
     setShowResults(false);
+    // Navigate to the lesson page instead of opening modal
+    router.push(`/users/lessons/${lesson.id}`);
   };
 
   // Handle clicking on a module/category
   const handleCategoryClick = (category: LessonCategory) => {
     setSelectedModule(category);
-    setSelectedLesson(null);
     setIsModalOpen(true);
     setShowResults(false);
   };
@@ -167,14 +179,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
   // Close modal
   const handleCloseModal = () => {
     setIsModalOpen(false);
-    setSelectedLesson(null);
     setSelectedModule(null);
-  };
-
-  // Handle module completion
-  const handleModuleComplete = (moduleId: string) => {
-    console.log(`Module ${moduleId} completed!`);
-    // You can add your completion logic here
   };
 
   // Handle image load errors
@@ -334,46 +339,28 @@ const SearchBar: React.FC<SearchBarProps> = () => {
         )}
       </div>
 
-      {/* Modal for displaying selected lesson or module */}
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {selectedLesson ? (
-          // Individual lesson modal content
-          <div className="max-w-2xl mx-auto">
-            <CombinedCarousel
-              slides={sampleSlides} // You can replace this with actual lesson content
-              moduleId={selectedLesson.id}
-              moduleTitle={selectedLesson.title}
-              moduleDescription={selectedLesson.description || `Learn about ${selectedLesson.title}`}
-              speechBubbleMessages={[
-                `Welcome to ${selectedLesson.title}`,
-                "Let's start learning!"
-              ]}
-              onModuleComplete={handleModuleComplete}
-              onExit={handleCloseModal}
-            />
-          </div>
-        ) : selectedModule ? (
+      {/* Modal for displaying selected module only */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} imageSrc="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=128&h=128&fit=crop&crop=face">
+        {selectedModule && (
           // Module selection modal content
-          <div>
-            <h3 className="text-xl font-semibold mb-2">{selectedModule.category}</h3>
-            <p className="text-gray-600 mb-4">Choose a Lesson ({countLessons(selectedModule.lessons)})</p>
-            <ul className="space-y-3">
+          <div className="text-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">{selectedModule.category}</h2>
+            <p className="text-gray-600 mb-6">Choose a Lesson</p>
+            
+            {/* Lesson List */}
+            <div className="space-y-3 max-h-64 overflow-y-auto">
               {selectedModule.lessons.map((lesson, index) => (
-                <li key={index}>
-                  <button
-                    className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                    onClick={() => handleLessonClick(lesson)}
-                  >
-                    <div className="font-medium">{lesson.title}</div>
-                    {lesson.description && (
-                      <div className="text-sm text-blue-100 mt-1">{lesson.description}</div>
-                    )}
-                  </button>
-                </li>
+                <button
+                  key={index}
+                  onClick={() => handleLessonClick(lesson)}
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-3 rounded-lg font-medium transition-colors duration-200"
+                >
+                  {lesson.title}
+                </button>
               ))}
-            </ul>
+            </div>
           </div>
-        ) : null}
+        )}
       </Modal>
     </div>
   );
