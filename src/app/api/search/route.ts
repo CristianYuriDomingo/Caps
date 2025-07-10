@@ -1,4 +1,4 @@
-// app/api/search/route.ts
+// app/api/search/route.ts - Enhanced version
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
@@ -8,34 +8,49 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const query = searchParams.get('q');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const includeEmpty = searchParams.get('includeEmpty') === 'true';
 
     if (!query || query.trim().length === 0) {
       return NextResponse.json({
         success: true,
         data: [],
-        message: 'No search query provided'
+        message: 'No search query provided',
+        total: 0
       });
     }
 
     const searchTerm = query.trim().toLowerCase();
 
-    // Search in modules and lessons
+    // Search with more sophisticated query
     const modules = await prisma.module.findMany({
       where: {
         OR: [
+          // Search in module title
           {
             title: {
               contains: searchTerm,
               mode: 'insensitive'
             }
           },
+          // Search in lessons within modules
           {
             lessons: {
               some: {
-                title: {
-                  contains: searchTerm,
-                  mode: 'insensitive'
-                }
+                OR: [
+                  {
+                    title: {
+                      contains: searchTerm,
+                      mode: 'insensitive'
+                    }
+                  },
+                  {
+                    description: {
+                      contains: searchTerm,
+                      mode: 'insensitive'
+                    }
+                  }
+                ]
               }
             }
           }
@@ -44,72 +59,116 @@ export async function GET(request: NextRequest) {
       include: {
         lessons: {
           where: {
-            title: {
-              contains: searchTerm,
-              mode: 'insensitive'
-            }
+            OR: [
+              {
+                title: {
+                  contains: searchTerm,
+                  mode: 'insensitive'
+                }
+              },
+              {
+                description: {
+                  contains: searchTerm,
+                  mode: 'insensitive'
+                }
+              }
+            ]
           },
           orderBy: {
             createdAt: 'asc'
+          }
+        },
+        _count: {
+          select: {
+            lessons: true
           }
         }
       },
       orderBy: {
         createdAt: 'desc'
-      }
+      },
+      take: limit
     });
 
-    // If no direct matches, get all modules and filter lessons
-    let allModules = [];
-    if (modules.length === 0) {
-      allModules = await prisma.module.findMany({
-        include: {
-          lessons: {
-            where: {
-              title: {
-                contains: searchTerm,
-                mode: 'insensitive'
-              }
-            },
-            orderBy: {
-              createdAt: 'asc'
-            }
-          }
-        },
-        orderBy: {
-          createdAt: 'desc'
-        }
-      });
-    }
+    // Transform data and add relevance scoring
+    const searchResults = modules.map(module => {
+      // Calculate relevance score
+      let relevanceScore = 0;
+      
+      // Module title match gets high score
+      if (module.title.toLowerCase().includes(searchTerm)) {
+        relevanceScore += 10;
+      }
+      
+      // Lesson matches get medium score
+      relevanceScore += module.lessons.length * 5;
+      
+      // Filter lessons to only include matches
+      const matchingLessons = module.lessons.filter(lesson => 
+        lesson.title.toLowerCase().includes(searchTerm) ||
+        lesson.description.toLowerCase().includes(searchTerm)
+      );
 
-    const searchResults = (modules.length > 0 ? modules : allModules)
-      .filter(module => 
-        module.title.toLowerCase().includes(searchTerm) || 
-        module.lessons.length > 0
-      )
-      .map(module => ({
+      return {
         category: module.title,
         image: module.image,
         moduleId: module.id,
-        lessons: module.lessons.map(lesson => ({
+        totalLessons: module._count.lessons,
+        relevanceScore,
+        lessons: matchingLessons.map(lesson => ({
+          id: lesson.id,
           title: lesson.title,
-          path: `/lessons/${lesson.id}`, // Adjust path as needed
-          lessonId: lesson.id
+          description: lesson.description,
+          path: `/lessons/${lesson.id}`, // Adjust path based on your routing
+          moduleId: module.id,
+          moduleName: module.title
         }))
-      }));
+      };
+    }).filter(category => {
+      // Include categories with matching lessons or if module name matches
+      const hasMatchingLessons = category.lessons.length > 0;
+      const moduleNameMatches = category.category.toLowerCase().includes(searchTerm);
+      
+      if (includeEmpty) {
+        return hasMatchingLessons || moduleNameMatches;
+      }
+      
+      return hasMatchingLessons;
+    }).sort((a, b) => b.relevanceScore - a.relevanceScore); // Sort by relevance
+
+    // Add search suggestions if no results found
+    let suggestions: string[] = [];
+    if (searchResults.length === 0) {
+      // Get popular search terms (you can implement this based on your needs)
+      const popularModules = await prisma.module.findMany({
+        take: 5,
+        orderBy: {
+          createdAt: 'desc'
+        },
+        select: {
+          title: true
+        }
+      });
+      
+      suggestions = popularModules.map(m => m.title);
+    }
 
     return NextResponse.json({
       success: true,
       data: searchResults,
-      total: searchResults.length
+      total: searchResults.length,
+      query: searchTerm,
+      suggestions,
+      hasMore: searchResults.length === limit
     });
 
   } catch (error) {
-    console.error('Error in search API:', error);
+    console.error('Error searching:', error);
     return NextResponse.json({
       success: false,
-      error: 'Failed to perform search',
-      data: []
+      error: 'Failed to search',
+      data: [],
+      total: 0
     }, { status: 500 });
   }
 }
