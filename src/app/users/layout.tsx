@@ -15,7 +15,6 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
   const { data: session } = useSession();
   const pathname = usePathname();
   const [isDropdownVisible, setDropdownVisible] = useState(true);
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   // Check if current page is a lesson page
   const isLessonPage = pathname.includes('/lessons/');
@@ -31,23 +30,17 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     { 
       name: 'Learning Modules', 
       href: '/users/dashboard', 
-      icon: '/DashboardImage/dashboard.png',
+      icon: '/DashboardImage/learn.png',
       alt: 'Dashboard'
     },
     { 
       name: 'Quiz', 
-      href: '/users/reports', 
-      icon: '/DashboardImage/reports.png',
-      alt: 'Reports'
+      href: '/users/quiz', 
+      icon: '/DashboardImage/quiz.png',
+      alt: 'Quiz'
     },
     { 
-      name: 'Achievements', 
-      href: '/users/alerts', 
-      icon: '/DashboardImage/alerts.png',
-      alt: 'Alerts'
-    },
-    { 
-      name: 'Quest', 
+      name: 'Profile', 
       href: '/users/profile', 
       icon: '/DashboardImage/profile.png',
       alt: 'Profile'
@@ -69,7 +62,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     );
   }
 
-  // Default dashboard layout with sidebar
+  // Default dashboard layout with responsive sidebar
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Decorative fixed blobs */}
@@ -81,185 +74,176 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
       </div>
 
       <div className="flex h-screen relative z-10">
-        {/* Sidebar */}
+        {/* Sidebar - Responsive width */}
         <aside
-          id="logo-sidebar"
-          className={`fixed top-0 left-0 z-40 w-72 h-full bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 transition-transform ${
-            isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } sm:translate-x-0`}
+          className="fixed top-0 left-0 z-40 h-full bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 transition-all duration-300 ease-in-out
+                     w-16 md:w-72 border-r border-gray-200 dark:border-gray-700"
           aria-label="Sidebar"
         >
-          <div className="h-full px-3 py-4 overflow-y-auto">
-            {/* Close button for mobile - only shows when sidebar is open and on mobile */}
-            <button
-              onClick={() => setSidebarOpen(false)}
-              className="absolute top-4 right-4 p-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded-lg transition-colors duration-200 sm:hidden"
-              aria-label="Close sidebar"
-            >
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
-            {/* Logo */}
-            <a href="/users/dashboard" className="flex justify-center items-center mb-5">
+          <div className="h-full px-2 md:px-3 py-4 overflow-y-auto flex flex-col">
+            {/* Logo - Responsive */}
+            <div className="flex justify-center items-center mb-6">
+              {/* Small screen logo - only visible on small screens */}
               <Image
-                src="/MainImage/logo.png"
-                className="h-16 sm:h-20"
+                src="/DashboardImage/logo-small.png"
+                className="h-8 w-auto md:hidden"
+                alt="Bantay Bayan Logo"
+                width={32}
+                height={32}
+              />
+              {/* Large screen logo - only visible on medium+ screens */}
+              <Image
+                src="/DashboardImage/logo.png"
+                className="hidden md:block h-16 w-auto"
                 alt="Bantay Bayan Logo"
                 width={150}
                 height={110}
               />
-            </a>
+            </div>
 
             {/* Navigation Menu */}
-            <ul className="space-y-4 font-medium">
-              {navigation.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className={`flex items-center p-4 text-lg rounded-lg transition-colors ${
-                        isActive
-                          ? 'text-gray-900 dark:text-white bg-blue-100 dark:bg-gray-700 border border-blue-300 dark:border-gray-600'
-                          : 'text-gray-900 dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700'
-                      }`}
-                    >
+            <nav className="flex-1">
+              <ul className="space-y-2 md:space-y-4 font-medium">
+                {navigation.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className={`flex items-center p-3 md:p-4 rounded-lg transition-all duration-200 group relative
+                          ${isActive
+                            ? 'text-gray-900 dark:text-white bg-blue-100 dark:bg-gray-700 border border-blue-300 dark:border-gray-600'
+                            : 'text-gray-900 dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700'
+                          }`}
+                        title={item.name} // Tooltip for small screens
+                      >
+                        <div className="flex items-center justify-center w-6 h-6 flex-shrink-0">
+                          <Image
+                            src={item.icon}
+                            className="w-6 h-6"
+                            alt={item.alt}
+                            width={24}
+                            height={24}
+                          />
+                        </div>
+                        {/* Text only visible on medium screens and up */}
+                        <span className="hidden md:block ml-3 text-lg uppercase">
+                          {item.name}
+                        </span>
+                        
+                        {/* Tooltip for small screens */}
+                        <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 md:hidden">
+                          {item.name}
+                        </div>
+                      </Link>
+                    </li>
+                  );
+                })}
+                
+                {/* Divider */}
+                <hr className="border-t-2 border-gray-200 dark:border-gray-700 my-4" />
+                
+                {/* Sign Out */}
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="w-full flex items-center p-3 md:p-4 rounded-lg text-gray-900 dark:text-white hover:bg-red-100 dark:hover:bg-red-700 transition-all duration-200 group relative"
+                    title="Sign Out"
+                  >
+                    <div className="flex items-center justify-center w-6 h-6 flex-shrink-0">
                       <Image
-                        src={item.icon}
+                        src="/DashboardImage/logout.png"
                         className="w-6 h-6"
-                        alt={item.alt}
+                        alt="Logout"
                         width={24}
                         height={24}
                       />
-                      <span className="ms-3 uppercase">{item.name}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-              
-              {/* Divider */}
-              <hr className="border-t-2 border-gray-200 dark:border-gray-700 my-4" />
-              
-              {/* Sign Out */}
-              <li>
-                <button
-                  onClick={handleSignOut}
-                  className="w-full flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-red-700 transition-colors"
-                >
-                  <Image
-                    src="/DashboardImage/logout.png"
-                    className="w-6 h-6"
-                    alt="Logout"
-                    width={24}
-                    height={24}
-                  />
-                  <span className="ms-3 uppercase">Sign Out</span>
-                </button>
-              </li>
-            </ul>
-
-            {/* Remember Alert */}
-            {isDropdownVisible && (
-              <div
-                id="dropdown-cta"
-                className="p-4 mt-6 rounded-lg bg-blue-50 dark:bg-blue-900"
-                role="alert"
-              >
-                <div className="flex items-center mb-3">
-                  <span className="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-orange-200 dark:text-orange-900">
-                    Remember!
-                  </span>
-                  <button
-                    type="button"
-                    className="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
-                    aria-label="Close"
-                    onClick={() => setDropdownVisible(false)}
-                  >
-                    <span className="sr-only">Close</span>
-                    <svg
-                      className="w-2.5 h-2.5"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 14 14"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                      />
-                    </svg>
+                    </div>
+                    <span className="hidden md:block ml-3 text-lg uppercase">
+                      Sign Out
+                    </span>
+                    
+                    {/* Tooltip for small screens */}
+                    <div className="absolute left-full ml-2 px-2 py-1 bg-gray-900 text-white text-sm rounded opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 whitespace-nowrap z-50 md:hidden">
+                      Sign Out
+                    </div>
                   </button>
-                </div>
-                <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
-                  Do not ignore any suspicious activity—report it immediately to authorities.
-                </p>
-                <a
-                  className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                  href="#"
+                </li>
+              </ul>
+            </nav>
+
+            {/* Remember Alert - Only visible on larger screens */}
+            {isDropdownVisible && (
+              <div className="hidden md:block mt-6">
+                <div
+                  className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900"
+                  role="alert"
                 >
-                  Contact the Police
-                </a>
+                  <div className="flex items-center mb-3">
+                    <span className="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-orange-200 dark:text-orange-900">
+                      Remember!
+                    </span>
+                    <button
+                      type="button"
+                      className="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+                      aria-label="Close"
+                      onClick={() => setDropdownVisible(false)}
+                    >
+                      <span className="sr-only">Close</span>
+                      <svg
+                        className="w-2.5 h-2.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
+                    Do not ignore any suspicious activity—report it immediately to authorities.
+                  </p>
+                  <a
+                    className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                    href="#"
+                  >
+                    Contact the Police
+                  </a>
+                </div>
               </div>
             )}
           </div>
         </aside>
 
-        {/* Main content */}
-        <div className="flex-1 p-4 sm:ml-72">
-          {/* Mobile sidebar toggle button */}
-          <button
-            onClick={() => setSidebarOpen(!isSidebarOpen)}
-            className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none mb-4"
-          >
-            <span className="sr-only">Open sidebar</span>
-            <svg
-              className="w-6 h-6"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                fillRule="evenodd"
-                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-              ></path>
-            </svg>
-          </button>
-
-          {/* Two-column layout */}
-          <div className="flex flex-col lg:flex-row w-full gap-4">
-            {/* Left column - 70% */}
-            <div className="w-full lg:w-[70%]">
-              <div className="h-full overflow-hidden p-6">
-                {children}
+        {/* Main content - Responsive margin */}
+        <div className="flex-1 ml-16 md:ml-72 transition-all duration-300 ease-in-out">
+          <div className="p-4">
+            {/* Two-column layout */}
+            <div className="flex flex-col lg:flex-row w-full gap-4">
+              {/* Left column - 70% */}
+              <div className="w-full lg:w-[70%]">
+                <div className="h-full overflow-hidden p-6">
+                  {children}
+                </div>
               </div>
-            </div>
-            
-            {/* Right column - 30% */}
-            <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 p-4 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
-              {/* Placeholder content for right column */}
-              <div className="p-4 bg-gray-50/80 dark:bg-gray-700/80 rounded-lg backdrop-blur-sm">
-                <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
-                  Right Column Content
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300">
-                  This is the right column placeholder. You can add any content here.
-                </p>
+              
+              {/* Right column - 30% */}
+              <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 p-4 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
+                {/* Placeholder content for right column */}
+                <div className="p-4 bg-gray-50/80 dark:bg-gray-700/80 rounded-lg backdrop-blur-sm">
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
+                    Right Column Content
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    This is the right column placeholder. You can add any content here.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

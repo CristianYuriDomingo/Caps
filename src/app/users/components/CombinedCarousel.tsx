@@ -37,17 +37,19 @@ type CombinedCarouselProps = {
   isOpen?: boolean;
   onClose?: () => void;
   showAsModal?: boolean;
-  onExit?: () => void; // Added this prop
+  onExit?: () => void;
 };
 
-// Speech Bubble Component with hardcoded image
+// Speech Bubble Component with enhanced image handling
 function SpeechBubble({ messages, typingSpeed = 50, delayBetween = 1500 }: SpeechBubbleProps) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageIndex, setMessageIndex] = useState(0);
+  const [imageError, setImageError] = useState(false);
   const imageRef = useRef<HTMLDivElement>(null);
 
-  // Hardcoded character image
-  const hardcodedCharacterImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7238f2d?w=80&h=80&fit=crop&crop=face&auto=format";
+  // Try the MainImage first, fallback to hardcoded if fails
+  const characterImagePath = "/MainImage/PibiTeach.png";
+  const fallbackImage = "https://images.unsplash.com/photo-1507003211169-0a1dd7238f2d?w=120&h=120&fit=crop&crop=face&auto=format";
 
   useEffect(() => {
     if (messageIndex < messages.length) {
@@ -64,14 +66,21 @@ function SpeechBubble({ messages, typingSpeed = 50, delayBetween = 1500 }: Speec
     }
   }, [messageIndex, messages, typingSpeed, delayBetween]);
 
+  const handleImageError = () => {
+    console.log('Character image failed to load:', characterImagePath);
+    setImageError(true);
+  };
+
   return (
     <div className="flex items-center space-x-4 p-4">
-      {/* Character Image - hardcoded */}
+      {/* Character Image - Enhanced to show 100% of image without cropping */}
       <div ref={imageRef} className="flex-shrink-0">
         <img 
-          src={hardcodedCharacterImage} 
+          src={imageError ? fallbackImage : characterImagePath}
           alt="Character" 
-          className="w-20 h-20 rounded-full object-cover border-2 border-gray-200 shadow-sm" 
+          className="w-24 h-24 object-contain bg-transparent" 
+          onError={handleImageError}
+          onLoad={() => console.log('Character image loaded successfully')}
         />
       </div>
 
@@ -104,12 +113,14 @@ const CarouselContent: React.FC<CombinedCarouselProps> = ({
   timerDuration = 10,
   timerColor = "red",
   onClose,
-  onExit // Added this prop
+  onExit
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(timerDuration);
   const [canProceed, setCanProceed] = useState(false);
+  const [iconImageError, setIconImageError] = useState(false);
+  const [iconImageLoaded, setIconImageLoaded] = useState(false);
 
   // Use the provided slides or fall back to sample slides
   const currentSlides = slides && slides.length > 0 ? slides : [
@@ -132,6 +143,17 @@ const CarouselContent: React.FC<CombinedCarouselProps> = ({
       content: "You can easily customize the theme colors, button text, and handle completion events. The component is fully responsive and works great on all devices."
     }
   ];
+
+  // Enhanced icon image handling
+  const handleIconError = () => {
+    console.log('Icon image failed to load:', iconImage);
+    setIconImageError(true);
+  };
+
+  const handleIconLoad = () => {
+    console.log('Icon image loaded successfully:', iconImage);
+    setIconImageLoaded(true);
+  };
 
   // Function to get timer notice classes based on color
   const getTimerClasses = (color: string) => {
@@ -254,15 +276,27 @@ const CarouselContent: React.FC<CombinedCarouselProps> = ({
           </div>
         </div>
 
-        {/* Enhanced separator with icon */}
+        {/* Enhanced separator with improved icon handling */}
         <div className="relative w-full mb-2 flex items-center justify-center">
           <div className="absolute h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-full"></div>
-          <div className="relative bg-white p-2 rounded-full shadow-sm z-10">
-            <img
-              src={iconImage}
-              alt="Icon"
-              className="h-8 w-8 object-cover"
-            />
+          <div className="relative bg-white p-3 rounded-full shadow-sm z-10 border border-gray-200">
+            {/* Enhanced icon with better fallback */}
+            {iconImageError ? (
+              <div className="h-8 w-8 bg-blue-500 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">📚</span>
+              </div>
+            ) : (
+              <img
+                src={iconImage}
+                alt="Module Icon"
+                className="h-8 w-8 object-contain"
+                onError={handleIconError}
+                onLoad={handleIconLoad}
+                style={{
+                  display: iconImageLoaded || !iconImageError ? 'block' : 'none'
+                }}
+              />
+            )}
           </div>
         </div>
 
