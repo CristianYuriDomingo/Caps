@@ -150,9 +150,10 @@ export default function LessonPage() {
       moduleTitle={lesson.title}
       moduleDescription={lesson.description}
       characterImage={lesson.module.image}
-      iconImage="https://via.placeholder.com/32x32/3B82F6/FFFFFF?text=📚"
-      timerDuration={lesson.timer || 10} // Use timer from lesson data or default to 10
-      timerColor="red" // You can customize this or make it dynamic
+      iconImage="https://v.placeholder.com/32x32/3B82F6/FFFFFF?text=📚"
+      timerDuration={lesson.timer || 10}
+      timerColor="red"
+      onExit={handleBackToDashboard}
     />
   );
 }
