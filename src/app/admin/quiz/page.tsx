@@ -154,13 +154,13 @@ const QuestionForm = ({ question, onSave, onCancel, questionNumber }: {
 
   const handleSave = () => {
     if (!questionText.trim()) return alert('Please enter a question');
-    if (!lesson.trim()) return alert('Please select a lesson');
+    if (!lesson.trim()) return alert('Please enter a lesson');
     if (options.some(opt => !opt.trim())) return alert('Please fill all options');
     
     onSave({
       id: question?.id || Date.now().toString(),
       question: questionText.trim(),
-      lesson: lesson,
+      lesson: lesson.trim(),
       image: imagePreview,
       options: options.map(opt => opt.trim()),
       correctAnswer,
@@ -182,19 +182,13 @@ const QuestionForm = ({ question, onSave, onCancel, questionNumber }: {
       </FormField>
       
       <FormField label="Lesson" required>
-        <select 
+        <input 
+          type="text"
           value={lesson} 
           onChange={(e) => setLesson(e.target.value)}
+          placeholder="Enter lesson name (e.g., Crime Prevention, Cyber Security, etc.)"
           className="w-full border border-gray-300 p-2 rounded"
-        >
-          <option value="">Select lesson</option>
-          <option value="Crime Prevention">Crime Prevention</option>
-          <option value="Cyber Security">Cyber Security</option>
-          <option value="Emergency Hotline">Emergency Hotline</option>
-          <option value="Drug Awareness">Drug Awareness</option>
-          <option value="Traffic Safety">Traffic Safety</option>
-          <option value="General Safety">General Safety</option>
-        </select>
+        />
       </FormField>
       
       <FormField label="Question Image (Optional)">
@@ -291,16 +285,37 @@ const AddQuizForm = ({ onClose, onSave, initialQuiz }: { onClose: () => void; on
     }
     
     setLoading(true);
-    // Simulate API call
-    setTimeout(() => {
-      onSave({
-        id: initialQuiz?.id || Date.now().toString(),
+    
+    try {
+      const quizData = {
         title: title.trim(),
         timer,
         questions
-      });
+      };
+      
+      const response = await fetch(
+        initialQuiz ? `/api/admin/quizzes/${initialQuiz.id}` : '/api/admin/quizzes',
+        {
+          method: initialQuiz ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(quizData),
+        }
+      );
+      
+      if (!response.ok) {
+        throw new Error('Failed to save quiz');
+      }
+      
+      const savedQuiz = await response.json();
+      onSave(savedQuiz);
+    } catch (error) {
+      console.error('Error saving quiz:', error);
+      alert('Failed to save quiz. Please try again.');
+    } finally {
       setLoading(false);
-    }, 1000);
+    }
   };
 
   return (
@@ -421,63 +436,42 @@ export default function QuizManagement() {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [showAddQuiz, setShowAddQuiz] = useState(false);
   const [editingQuiz, setEditingQuiz] = useState<Quiz | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // Sample data for demonstration
+  // Fetch quizzes from API
   useEffect(() => {
-    const sampleQuizzes: Quiz[] = [
-      {
-        id: '1',
-        title: 'Safety Assessment Quiz',
-        timer: 30,
-        questions: [
-          {
-            id: '1',
-            question: 'When walking alone at night, you should:',
-            lesson: 'Crime Prevention',
-            options: ['Use well-lit paths', 'Take shortcuts through dark alleys', 'Look distracted on your phone', 'Wear headphones with loud music'],
-            correctAnswer: 0,
-            explanation: 'Well-lit paths are safer as they provide better visibility and are usually more populated.'
-          },
-          {
-            id: '2',
-            question: 'What should you do if you notice someone following you?',
-            lesson: 'Crime Prevention',
-            options: ['Ignore them', 'Go to a crowded public place', 'Run home immediately', 'Confront them directly'],
-            correctAnswer: 1,
-            explanation: 'Going to a crowded public place like a store or restaurant can help ensure your safety.'
-          },
-          {
-            id: '3',
-            question: 'What makes a strong password?',
-            lesson: 'Cyber Security',
-            options: ['Your birthday', 'At least 8 characters with mixed case, numbers, and symbols', 'Your name', 'Simple dictionary words'],
-            correctAnswer: 1,
-            explanation: 'Strong passwords should be complex and include a mix of different character types.'
-          }
-        ]
-      },
-      {
-        id: '2',
-        title: 'Emergency Response Quiz',
-        timer: 45,
-        questions: [
-          {
-            id: '4',
-            question: 'What is the emergency hotline number in the Philippines?',
-            lesson: 'Emergency Hotline',
-            options: ['911', '117', '911 or 117', '999'],
-            correctAnswer: 2,
-            explanation: 'Both 911 and 117 can be used for emergencies in the Philippines.'
-          }
-        ]
-      }
-    ];
-    setQuizzes(sampleQuizzes);
+    fetchQuizzes();
   }, []);
 
-  const handleDeleteQuiz = (quizId: string) => {
-    setQuizzes(quizzes.filter(quiz => quiz.id !== quizId));
+  const fetchQuizzes = async () => {
+    try {
+      const response = await fetch('/api/admin/quizzes');
+      if (response.ok) {
+        const data = await response.json();
+        setQuizzes(data);
+      }
+    } catch (error) {
+      console.error('Error fetching quizzes:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteQuiz = async (quizId: string) => {
+    try {
+      const response = await fetch(`/api/admin/quizzes/${quizId}`, {
+        method: 'DELETE',
+      });
+      
+      if (response.ok) {
+        setQuizzes(quizzes.filter(quiz => quiz.id !== quizId));
+      } else {
+        alert('Failed to delete quiz');
+      }
+    } catch (error) {
+      console.error('Error deleting quiz:', error);
+      alert('Failed to delete quiz');
+    }
   };
 
   const handleSaveQuiz = (savedQuiz: Quiz) => {
@@ -485,7 +479,7 @@ export default function QuizManagement() {
       setQuizzes(quizzes.map(quiz => quiz.id === savedQuiz.id ? savedQuiz : quiz));
       setEditingQuiz(null);
     } else {
-      setQuizzes([...quizzes, savedQuiz]);
+      setQuizzes([savedQuiz, ...quizzes]);
     }
     setShowAddQuiz(false);
   };
@@ -499,6 +493,14 @@ export default function QuizManagement() {
     setShowAddQuiz(false);
     setEditingQuiz(null);
   };
+
+  if (loading) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <div className="text-lg">Loading quizzes...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6">
