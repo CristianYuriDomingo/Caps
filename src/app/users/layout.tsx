@@ -18,8 +18,8 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
 
   // Check if current page should render without sidebar
   const isLessonPage = pathname.includes('/lessons/');
-  const isQuizPage = pathname === '/users/quiz'; // Add this line
-  const isFullPageLayout = isLessonPage || isQuizPage; // Combine conditions
+  // Remove quiz page from full page layout - quiz will now show sidebar
+  const isFullPageLayout = isLessonPage; // Only lessons use full page layout
 
   const handleSignOut = async () => {
     await signOut({
@@ -55,7 +55,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     },
   ];
 
-  // If it's a lesson page or quiz page, render without sidebar
+  // If it's a lesson page, render without sidebar
   if (isFullPageLayout) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -64,7 +64,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     );
   }
 
-  // Default dashboard layout with responsive sidebar
+  // Default dashboard layout with responsive sidebar (includes quiz page)
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Decorative fixed blobs */}
