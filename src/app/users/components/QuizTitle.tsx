@@ -1,15 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-interface QuizTopicCardProps {
+interface QuizTitleProps {
+  id: string;
   title: string;
-  link: string;
-  imageSrc: string;
+  timer: number;
+  questionCount: number;
+  lessons: string[];
+  createdAt: string;
+  onQuizSelect: (id: string) => void;
 }
 
-export default function QuizTopicCard({ title, link, imageSrc }: QuizTopicCardProps) {
+export default function QuizTitle({ 
+  id, 
+  title, 
+  timer, 
+  questionCount, 
+  lessons, 
+  createdAt, 
+  onQuizSelect 
+}: QuizTitleProps) {
+  const [imageError, setImageError] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   const handleClick = () => {
-    // In a real Next.js app, you'd use router.push(link)
-    console.log(`Navigating to: ${link}`);
+    onQuizSelect(id);
+  };
+
+  const handleImageError = () => {
+    console.error('Failed to load image: /PoliceTape.png');
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
+
+  // Fallback background when image fails to load
+  const fallbackBackground = {
+    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   };
 
   return (
@@ -18,13 +46,37 @@ export default function QuizTopicCard({ title, link, imageSrc }: QuizTopicCardPr
         className="relative w-full max-w-xl overflow-hidden rounded-2xl shadow-xl border-4 border-[#d4d4d4] bg-[#eaebe8]
                   transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
         onClick={handleClick}
+        style={imageError ? fallbackBackground : {}}
       >
-        {/* Image with Border */}
-        <img
-          src={imageSrc}
-          alt={`${title} Background`}
-          className="w-full h-auto object-cover rounded-2xl border-4 border-[#d4d4d4]"
-        />
+        {/* Image with error handling */}
+        {!imageError && (
+          <img
+            src="/QuizImage/PoliceTape.png"
+            alt={`${title} Background`}
+            className="w-full h-auto object-cover rounded-2xl border-4 border-[#d4d4d4]"
+            onError={handleImageError}
+            onLoad={handleImageLoad}
+            style={{ display: imageLoaded ? 'block' : 'none' }}
+          />
+        )}
+        
+        {/* Loading placeholder */}
+        {!imageLoaded && !imageError && (
+          <div className="w-full h-48 bg-gray-300 rounded-2xl border-4 border-[#d4d4d4] flex items-center justify-center">
+            <div className="text-gray-500">Loading...</div>
+          </div>
+        )}
+        
+        {/* Error placeholder */}
+        {imageError && (
+          <div className="w-full h-48 rounded-2xl border-4 border-[#d4d4d4] flex items-center justify-center">
+            <div className="text-white text-center">
+              <div className="text-lg font-semibold">Image not found</div>
+              <div className="text-sm opacity-75">PoliceTape.png</div>
+            </div>
+          </div>
+        )}
+        
         {/* Text Overlay */}
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <h2
@@ -40,32 +92,12 @@ export default function QuizTopicCard({ title, link, imageSrc }: QuizTopicCardPr
             {title}
           </h2>
         </div>
+        
+        {/* Quiz info overlay */}
+        <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+          {questionCount} questions
+        </div>
       </div>
     </div>
   );
-}
-
-// Example usage with sample data
-function App() {
-  return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <QuizTopicCard
-          title="Science Quiz"
-          link="/quiz/science"
-          imageSrc="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=600&h=400&fit=crop"
-        />
-        <QuizTopicCard
-          title="History Quiz"
-          link="/quiz/history"
-          imageSrc="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=600&h=400&fit=crop"
-        />
-        <QuizTopicCard
-          title="Math Challenge"
-          link="/quiz/math"
-          imageSrc="https://images.unsplash.com/photo-1509228468518-180dd4864904?w=600&h=400&fit=crop"
-        />
-      </div>
-    </div>
-  );
-}
+} 
