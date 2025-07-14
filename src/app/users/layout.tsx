@@ -16,8 +16,10 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
   const pathname = usePathname();
   const [isDropdownVisible, setDropdownVisible] = useState(true);
 
-  // Check if current page is a lesson page
+  // Check if current page should render without sidebar
   const isLessonPage = pathname.includes('/lessons/');
+  const isQuizPage = pathname === '/users/quiz'; // Add this line
+  const isFullPageLayout = isLessonPage || isQuizPage; // Combine conditions
 
   const handleSignOut = async () => {
     await signOut({
@@ -53,8 +55,8 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     },
   ];
 
-  // If it's a lesson page, render without sidebar
-  if (isLessonPage) {
+  // If it's a lesson page or quiz page, render without sidebar
+  if (isFullPageLayout) {
     return (
       <div className="min-h-screen bg-gray-50">
         {children}
