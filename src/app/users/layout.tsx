@@ -228,15 +228,15 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
           <div className="p-4">
             {/* Two-column layout */}
             <div className="flex flex-col lg:flex-row w-full gap-4">
-              {/* Left column - 70% */}
+              {/* Left column - 70% with aligned top spacing */}
               <div className="w-full lg:w-[70%]">
-                <div className="h-full overflow-hidden p-6">
+                <div className="h-full overflow-hidden">
                   {children}
                 </div>
               </div>
               
               {/* Right column - 30% */}
-              <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 p-4 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
+              <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white/80 backdrop-blur-sm dark:bg-gray-800/80 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
                 {/* Placeholder content for right column */}
                 <div className="p-4 bg-gray-50/80 dark:bg-gray-700/80 rounded-lg backdrop-blur-sm">
                   <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">
