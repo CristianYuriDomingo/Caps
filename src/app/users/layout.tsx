@@ -18,8 +18,9 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
 
   // Check if current page should render without sidebar
   const isLessonPage = pathname.includes('/lessons/');
-  // Remove quiz page from full page layout - quiz will now show sidebar
-  const isFullPageLayout = isLessonPage; // Only lessons use full page layout
+  const isQuizStartPage = pathname.includes('/quizStart/');
+  // Add quiz start pages to full page layout
+  const isFullPageLayout = isLessonPage || isQuizStartPage;
 
   const handleSignOut = async () => {
     await signOut({
@@ -55,7 +56,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     },
   ];
 
-  // If it's a lesson page, render without sidebar
+  // If it's a lesson page or quiz start page, render without sidebar
   if (isFullPageLayout) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -64,7 +65,7 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
     );
   }
 
-  // Default dashboard layout with responsive sidebar (includes quiz page)
+  // Default dashboard layout with responsive sidebar (includes regular quiz page)
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
       {/* Decorative fixed blobs */}
@@ -83,23 +84,23 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
           aria-label="Sidebar"
         >
           <div className="h-full px-2 md:px-3 py-4 overflow-y-auto flex flex-col">
-            {/* Logo - Responsive */}
-            <div className="flex justify-center items-center mb-6">
+            {/* Logo - Enhanced size */}
+            <div className="flex justify-center items-center mb-4">
               {/* Small screen logo - only visible on small screens */}
               <Image
                 src="/DashboardImage/logo-small.png"
-                className="h-8 w-auto md:hidden"
+                className="h-10 w-auto md:hidden"
                 alt="Bantay Bayan Logo"
-                width={32}
-                height={32}
+                width={40}
+                height={40}
               />
-              {/* Large screen logo - only visible on medium+ screens */}
+              {/* Large screen logo - enhanced size for medium+ screens */}
               <Image
                 src="/DashboardImage/logo.png"
-                className="hidden md:block h-16 w-auto"
+                className="hidden md:block h-20 w-auto"
                 alt="Bantay Bayan Logo"
-                width={150}
-                height={110}
+                width={180}
+                height={130}
               />
             </div>
 
@@ -145,6 +146,53 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
                 {/* Divider */}
                 <hr className="border-t-2 border-gray-200 dark:border-gray-700 my-4" />
                 
+                {/* Remember Alert - Positioned above Sign Out like in the image */}
+                {isDropdownVisible && (
+                  <li className="hidden md:block mb-4">
+                    <div
+                      className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-800"
+                      role="alert"
+                    >
+                      <div className="flex items-center mb-3">
+                        <span className="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-orange-200 dark:text-orange-900">
+                          Remember!
+                        </span>
+                        <button
+                          type="button"
+                          className="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
+                          aria-label="Close"
+                          onClick={() => setDropdownVisible(false)}
+                        >
+                          <span className="sr-only">Close</span>
+                          <svg
+                            className="w-2.5 h-2.5"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 14"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                      <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
+                        Do not ignore any suspicious activity—report it immediately to authorities.
+                      </p>
+                      <a
+                        className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
+                        href="#"
+                      >
+                        Contact the Police
+                      </a>
+                    </div>
+                  </li>
+                )}
+                
                 {/* Sign Out */}
                 <li>
                   <button
@@ -173,53 +221,6 @@ export default function UsersLayout({ children }: UsersLayoutProps) {
                 </li>
               </ul>
             </nav>
-
-            {/* Remember Alert - Only visible on larger screens */}
-            {isDropdownVisible && (
-              <div className="hidden md:block mt-6">
-                <div
-                  className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900"
-                  role="alert"
-                >
-                  <div className="flex items-center mb-3">
-                    <span className="bg-orange-100 text-orange-800 text-sm font-semibold me-2 px-2.5 py-0.5 rounded-sm dark:bg-orange-200 dark:text-orange-900">
-                      Remember!
-                    </span>
-                    <button
-                      type="button"
-                      className="ms-auto -mx-1.5 -my-1.5 bg-blue-50 inline-flex justify-center items-center w-6 h-6 text-blue-900 rounded-lg focus:ring-2 focus:ring-blue-400 p-1 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-400 dark:hover:bg-blue-800"
-                      aria-label="Close"
-                      onClick={() => setDropdownVisible(false)}
-                    >
-                      <span className="sr-only">Close</span>
-                      <svg
-                        className="w-2.5 h-2.5"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 14 14"
-                      >
-                        <path
-                          stroke="currentColor"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <p className="mb-3 text-sm text-blue-800 dark:text-blue-400">
-                    Do not ignore any suspicious activity—report it immediately to authorities.
-                  </p>
-                  <a
-                    className="text-sm text-blue-800 underline font-medium hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300"
-                    href="#"
-                  >
-                    Contact the Police
-                  </a>
-                </div>
-              </div>
-            )}
           </div>
         </aside>
 

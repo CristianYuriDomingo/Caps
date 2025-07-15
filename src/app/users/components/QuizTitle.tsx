@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface QuizTitleProps {
   id: string;
@@ -7,7 +8,7 @@ interface QuizTitleProps {
   questionCount: number;
   lessons: string[];
   createdAt: string;
-  onQuizSelect: (id: string) => void;
+  onQuizSelect?: (id: string) => void; // Made optional since we're using router
 }
 
 export default function QuizTitle({ 
@@ -19,11 +20,18 @@ export default function QuizTitle({
   createdAt, 
   onQuizSelect 
 }: QuizTitleProps) {
+  const router = useRouter();
   const [imageError, setImageError] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
 
   const handleClick = () => {
-    onQuizSelect(id);
+    // Navigate to quizStart page with quiz ID
+    router.push(`/users/quizStart/${id}`);
+    
+    // Still call onQuizSelect if provided (for backward compatibility)
+    if (onQuizSelect) {
+      onQuizSelect(id);
+    }
   };
 
   const handleImageError = () => {
@@ -100,4 +108,4 @@ export default function QuizTitle({
       </div>
     </div>
   );
-} 
+}

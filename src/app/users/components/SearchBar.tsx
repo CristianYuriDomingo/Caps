@@ -113,17 +113,18 @@ const SearchBar = () => {
 
       if (data.success) {
         setSearchResults(data.data);
-        setShowDropdown(true);
+        // Only show dropdown if there are results OR if there's an error/no results message to show
+        setShowDropdown(data.data.length > 0 || true); // Show dropdown to display "no results" message
       } else {
         setError(data.error || 'Search failed');
         setSearchResults([]);
-        setShowDropdown(true);
+        setShowDropdown(true); // Show dropdown to display error
       }
     } catch (err) {
       console.error('Search error:', err);
       setError('Failed to search. Please try again.');
       setSearchResults([]);
-      setShowDropdown(true);
+      setShowDropdown(true); // Show dropdown to display error
     } finally {
       setIsLoading(false);
     }
@@ -133,10 +134,18 @@ const SearchBar = () => {
     const value = e.target.value;
     setSearchTerm(value);
     
-    if (value.trim()) {
-      setShowDropdown(true);
-    } else {
+    // Don't show dropdown immediately on input change, let the search effect handle it
+    if (!value.trim()) {
       setShowDropdown(false);
+      setSearchResults([]);
+      setError('');
+    }
+  };
+
+  const handleInputFocus = () => {
+    // Only show dropdown on focus if we have search term and results/error
+    if (searchTerm.trim() && (searchResults.length > 0 || error)) {
+      setShowDropdown(true);
     }
   };
 
@@ -163,6 +172,9 @@ const SearchBar = () => {
     );
   };
 
+  // Determine if dropdown should show content
+  const shouldShowDropdownContent = showDropdown && searchTerm.trim() && (searchResults.length > 0 || error);
+
   return (
     <div ref={containerRef} className="relative w-full max-w-2xl mx-auto mb-6">
       {/* Search Input */}
@@ -173,7 +185,7 @@ const SearchBar = () => {
           placeholder="Search for modules or lessons..."
           value={searchTerm}
           onChange={handleInputChange}
-          onFocus={() => searchTerm.trim() && setShowDropdown(true)}
+          onFocus={handleInputFocus}
         />
         
         <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
@@ -189,7 +201,7 @@ const SearchBar = () => {
       </div>
 
       {/* Search Results Dropdown */}
-      {showDropdown && (
+      {shouldShowDropdownContent && (
         <div className="absolute w-full mt-2 bg-white rounded-lg shadow-lg border border-gray-200 max-h-96 overflow-y-auto z-50">
           {error ? (
             <div className="p-4 text-center text-red-500">
@@ -236,12 +248,12 @@ const SearchBar = () => {
                 </div>
               ))}
             </div>
-          ) : searchTerm.trim() ? (
+          ) : (
             <div className="p-6 text-center text-gray-500">
               <p>No results found for "{searchTerm}"</p>
               <p className="text-sm mt-1">Try different keywords</p>
             </div>
-          ) : null}
+          )}
         </div>
       )}
 

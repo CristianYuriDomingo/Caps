@@ -1,180 +1,151 @@
-// FILE 3: app/api/users/quizzes/[id]/submit/route.ts
+// app/api/users/quizzes/[id]/submit/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-interface UserAnswer {
-  questionId: string;
-  selectedAnswer: number;
-  timeSpent: number; // Time spent on this question in seconds
-}
-
-interface SubmissionData {
-  answers: UserAnswer[];
-  totalTime: number; // Total time spent on quiz
-}
-
-// POST - Submit quiz answers and get results
+// POST - Submit answer for a specific question and get feedback
 export async function POST(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    const body: SubmissionData = await request.json();
-    const { answers, totalTime } = body;
+    const body = await request.json();
+    const { questionId, selectedAnswer } = body;
 
-    // Validate submission
-    if (!answers || answers.length === 0) {
+    // Validate required fields
+    if (!questionId || selectedAnswer === undefined) {
       return NextResponse.json(
-        { error: 'No answers provided' },
+        { error: 'Question ID and selected answer are required' },
         { status: 400 }
       );
     }
 
-    // Fetch quiz with correct answers
-    const quiz = await prisma.quiz.findUnique({
-      where: { id: params.id },
-      include: {
-        questions: {
-          select: {
-            id: true,
-            question: true,
-            lesson: true,
-            image: true,
-            options: true,
-            correctAnswer: true,
-            explanation: true
-          }
-        }
+    // Find the specific question to get the correct answer and explanation
+    const question = await prisma.question.findFirst({
+      where: {
+        id: questionId,
+        quizId: params.id
+      },
+      select: {
+        id: true,
+        question: true,
+        options: true,
+        correctAnswer: true,
+        explanation: true
       }
     });
 
-    if (!quiz) {
+    if (!question) {
       return NextResponse.json(
-        { error: 'Quiz not found' },
+        { error: 'Question not found' },
         { status: 404 }
       );
     }
 
-    // Calculate results
-    const results = answers.map(userAnswer => {
-      const question = quiz.questions.find(q => q.id === userAnswer.questionId);
-      
-      if (!question) {
-        return {
-          questionId: userAnswer.questionId,
-          correct: false,
-          error: 'Question not found'
-        };
-      }
+    // Check if the answer is correct by comparing with correctAnswer index
+    const isCorrect = selectedAnswer === question.correctAnswer;
 
-      const isCorrect = userAnswer.selectedAnswer === question.correctAnswer;
-      
-      return {
-        questionId: userAnswer.questionId,
-        question: question.question,
-        lesson: question.lesson,
-        image: question.image,
-        options: question.options,
-        userAnswer: userAnswer.selectedAnswer,
-        correctAnswer: question.correctAnswer,
-        correct: isCorrect,
-        explanation: question.explanation,
-        timeSpent: userAnswer.timeSpent
-      };
+    // Return the result with correct answer and explanation
+    return NextResponse.json({
+      questionId: question.id,
+      selectedAnswer,
+      correctAnswer: question.correctAnswer,
+      correctAnswerText: question.options[question.correctAnswer],
+      isCorrect,
+      explanation: question.explanation,
+      // Optional: include the question and options for context
+      question: question.question,
+      options: question.options
     });
 
-    // Calculate statistics
-    const correctAnswers = results.filter(r => r.correct).length;
-    const totalQuestions = results.length;
-    const percentage = Math.round((correctAnswers / totalQuestions) * 100);
-    
-    // Determine pass/fail (you can adjust this threshold)
-    const passingScore = 70;
-    const passed = percentage >= passingScore;
-
-    // Group results by lesson for detailed feedback
-    const lessonResults = results.reduce((acc, result) => {
-      if (!result.lesson) return acc;
-      
-      if (!acc[result.lesson]) {
-        acc[result.lesson] = {
-          lesson: result.lesson,
-          total: 0,
-          correct: 0,
-          questions: []
-        };
-      }
-      
-      acc[result.lesson].total++;
-      if (result.correct) {
-        acc[result.lesson].correct++;
-      }
-      acc[result.lesson].questions.push(result);
-      
-      return acc;
-    }, {} as Record<string, any>);
-
-    // Calculate lesson percentages
-    Object.values(lessonResults).forEach((lesson: any) => {
-      lesson.percentage = Math.round((lesson.correct / lesson.total) * 100);
-    });
-
-    const response = {
-      quizId: quiz.id,
-      quizTitle: quiz.title,
-      summary: {
-        totalQuestions,
-        correctAnswers,
-        percentage,
-        passed,
-        passingScore,
-        totalTime,
-        averageTimePerQuestion: Math.round(totalTime / totalQuestions)
-      },
-      results,
-      lessonBreakdown: Object.values(lessonResults),
-      recommendations: generateRecommendations(lessonResults, passed)
-    };
-
-    return NextResponse.json(response);
   } catch (error) {
-    console.error('Error processing quiz submission:', error);
+    console.error('Error submitting answer:', error);
     return NextResponse.json(
-      { error: 'Failed to process quiz submission' },
+      { error: 'Failed to submit answer' },
       { status: 500 }
     );
   }
 }
 
-// Helper function to generate recommendations
-function generateRecommendations(lessonResults: Record<string, any>, passed: boolean) {
-  const recommendations = [];
-  
-  if (!passed) {
-    recommendations.push({
-      type: 'overall',
-      message: 'Consider reviewing the materials and retaking the quiz to improve your score.'
-    });
-  }
+// PUT - Submit all answers at once (for complete quiz submission)
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const body = await request.json();
+    const { answers } = body; // Array of { questionId, selectedAnswer }
 
-  // Check for weak areas
-  Object.values(lessonResults).forEach((lesson: any) => {
-    if (lesson.percentage < 60) {
-      recommendations.push({
-        type: 'lesson',
-        lesson: lesson.lesson,
-        message: `Focus on studying ${lesson.lesson} - you scored ${lesson.percentage}% in this area.`
-      });
-    } else if (lesson.percentage >= 90) {
-      recommendations.push({
-        type: 'strength',
-        lesson: lesson.lesson,
-        message: `Great job on ${lesson.lesson}! You scored ${lesson.percentage}%.`
-      });
+    // Validate input
+    if (!answers || !Array.isArray(answers) || answers.length === 0) {
+      return NextResponse.json(
+        { error: 'Answers array is required' },
+        { status: 400 }
+      );
     }
-  });
 
-  return recommendations;
+    // Get all questions for this quiz
+    const questions = await prisma.question.findMany({
+      where: { quizId: params.id },
+      select: {
+        id: true,
+        question: true,
+        options: true,
+        correctAnswer: true,
+        explanation: true
+      }
+    });
+
+    if (questions.length === 0) {
+      return NextResponse.json(
+        { error: 'Quiz not found or has no questions' },
+        { status: 404 }
+      );
+    }
+
+    // Process each answer
+    const results = answers.map(answer => {
+      const question = questions.find(q => q.id === answer.questionId);
+      
+      if (!question) {
+        return {
+          questionId: answer.questionId,
+          error: 'Question not found'
+        };
+      }
+
+      const isCorrect = answer.selectedAnswer === question.correctAnswer;
+      
+      return {
+        questionId: question.id,
+        selectedAnswer: answer.selectedAnswer,
+        correctAnswer: question.correctAnswer,
+        correctAnswerText: question.options[question.correctAnswer],
+        isCorrect,
+        explanation: question.explanation,
+        question: question.question,
+        options: question.options
+      };
+    });
+
+    // Calculate score
+    const correctCount = results.filter(r => r.isCorrect).length;
+    const totalQuestions = results.length;
+    const score = Math.round((correctCount / totalQuestions) * 100);
+
+    return NextResponse.json({
+      score,
+      correctCount,
+      totalQuestions,
+      results
+    });
+
+  } catch (error) {
+    console.error('Error submitting quiz:', error);
+    return NextResponse.json(
+      { error: 'Failed to submit quiz' },
+      { status: 500 }
+    );
+  }
 }

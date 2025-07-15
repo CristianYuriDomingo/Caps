@@ -1,4 +1,3 @@
-// app/api/search/route.ts - Enhanced version
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 
@@ -58,22 +57,7 @@ export async function GET(request: NextRequest) {
       },
       include: {
         lessons: {
-          where: {
-            OR: [
-              {
-                title: {
-                  contains: searchTerm,
-                  mode: 'insensitive'
-                }
-              },
-              {
-                description: {
-                  contains: searchTerm,
-                  mode: 'insensitive'
-                }
-              }
-            ]
-          },
+          // Remove the where clause here to get ALL lessons from matching modules
           orderBy: {
             createdAt: 'asc'
           }
@@ -100,14 +84,14 @@ export async function GET(request: NextRequest) {
         relevanceScore += 10;
       }
       
-      // Lesson matches get medium score
-      relevanceScore += module.lessons.length * 5;
-      
-      // Filter lessons to only include matches
+      // Filter lessons to only include matches - with null check
       const matchingLessons = module.lessons.filter(lesson => 
         lesson.title.toLowerCase().includes(searchTerm) ||
-        lesson.description.toLowerCase().includes(searchTerm)
+        (lesson.description && lesson.description.toLowerCase().includes(searchTerm))
       );
+
+      // Lesson matches get medium score
+      relevanceScore += matchingLessons.length * 5;
 
       return {
         category: module.title,
